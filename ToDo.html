@@ -8,12 +8,34 @@
 </head>
 <body>
     <div class="top-navigation">
-        <button class="button"><i class="fa-solid fa-bars"></i></button>
         <div class="left-container">
+            <button class="button"><i class="fa-solid fa-bars"></i></button>
+            <p class="title">To Do</p>
         </div>
         <div class="middle-container">
+            <div class="search-bar-left">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="search-bar-middle">
+                <input type="text" placeholder="Search">
+            </div>    
+            <div class="search-bar-right">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
         </div>
         <div class="right-container">
+            <div class = "setting-icon">
+                <i class="fa-solid fa-gear"></i>
+            </div>
+            <div class="help-icon">
+                <i class="fa-solid fa-question"></i>
+            </div>
+            <div class="megaphone-icon">
+                <i class="fa-solid fa-bullhorn"></i>
+            </div>
+            <div class="user-icon">
+                <i class="fa-regular fa-circle-user"></i>
+            </div>
         </div>
     </div>
     
@@ -54,8 +76,8 @@
                 </li>
 
                 <li>
-                    <div class="user">
-                        <div class="user-icon">
+                    <div class="assign">
+                        <div class="assign-icon">
                             <i class="fa-regular fa-user"></i>
                         </div>
                         <div class="assigned-title">Assigned to me</div>
@@ -71,10 +93,60 @@
                     </div>    
                 </li>
             </ul>
+
+            <div class="side-navigation-line">
+                <hr>
+            </div>
+
+            <div class="side-navigation-middle-container">
+                <div class="add-list-icon">
+                   <button><i class="fa-solid fa-plus"></i></button> 
+                </div>
+                <div class="add-list">
+                    <input type="text" placeholder="New list">
+                </div>    
+                <div class="create-group-icon">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+            </div>
+
+            <div class="side-navigation-bottom">
+                <div class="message-icon">
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+                <div class="calendar-icon">
+                    <i class="fa-regular fa-calendar"></i>
+                </div>
+                <div class="group-icon">
+                    <i class="fa-solid fa-user-group"></i>
+                </div>
+                <div class="paperclip-icon">
+                    <i class="fa-solid fa-paperclip"></i>
+                </div>
+                <div class="check-icon">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+            </div>
         </div>    
     </div>
-    <div class ="right-container">
-        
+
+    <div class ="main-container">
+        <div class="main-container-header">
+            <div class="main-container-icon">
+                <i class="fa-regular fa-sun"></i>
+            </div>
+            <div class="main-container-title">
+                <h2>My Day</h2>
+            </div>
+        </div>
+        <div class = "task">
+            <div class="task-status-icon">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+            <div class="new-task">
+                <input type="text" placeholder="Add a task">
+            </div>
+        </div>
     </div>
 </body>
 </html>
