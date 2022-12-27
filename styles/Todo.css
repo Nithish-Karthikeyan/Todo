@@ -358,3 +358,13 @@ body {
 .main-container .task .new-task {
     display: inline-block;
 }
+
+.main-container .main-container-header .current-date {
+    display: block;
+    color: #605e5c;
+    margin-top:5px;
+}
+
+.main-container .main-container-header .current-date p {
+    font-size: 12px;
+}

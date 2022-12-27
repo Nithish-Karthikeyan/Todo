@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <script src="https://kit.fontawesome.com/f205b9ad7f.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/Todo.css">
+    <script src="scripts/ToDo.js"></script>
     <title>TO DO</title>
 </head>
-<body>
+<body onload="currentDate()">
     <div class="top-navigation">
         <div class="left-container">
             <button class="button"><i class="fa-solid fa-bars"></i></button>
@@ -137,6 +138,9 @@
             </div>
             <div class="main-container-title">
                 <h2>My Day</h2>
+            </div>
+            <div class="current-date">
+                <p id="date"></p>
             </div>
         </div>
         <div class = "task">
