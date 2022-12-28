@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://kit.fontawesome.com/f205b9ad7f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="styles/Todo.css">
-    <script src="scripts/ToDo.js"></script>
     <title>TO DO</title>
 </head>
-<body onload="currentDate()">
+<body>
     <div class="top-navigation">
         <div class="left-container">
-            <button class="button"><i class="fa-solid fa-bars"></i></button>
+            <button class="button"><span class="material-symbols-outlined">
+                apps
+                </span></button>
             <p class="title">To Do</p>
         </div>
         <div class="middle-container">
@@ -28,13 +30,13 @@
             <div class = "setting-icon">
                 <i class="fa-solid fa-gear"></i>
             </div>
-            <div class="help-icon">
+            <div class="setting-icon">
                 <i class="fa-solid fa-question"></i>
             </div>
-            <div class="megaphone-icon">
+            <div class="setting-icon">
                 <i class="fa-solid fa-bullhorn"></i>
             </div>
-            <div class="user-icon">
+            <div class="setting-icon">
                 <i class="fa-regular fa-circle-user"></i>
             </div>
         </div>
@@ -43,54 +45,54 @@
     <div class="side-navigation">
         <div class="side-navigation-header">
             <div class = "side-navigation-button">
-                <button><i class="fa-solid fa-bars"></i></button>
+                <button id="toggle-menu" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
 
         <div class="side-navigation-content">
             <ul>
                 <li>
-                    <div class="my-day">
-                        <div class="my-day-icon">
+                    <div class="side-navigation-menu">
+                        <div class="side-naivgation-menu-icon">
                             <i class="fa-regular fa-sun"></i>
                         </div>
-                        <div class="my-day-tittle">My Day</div>
+                        <div class="side-naivgation-menu-tittle">My Day</div>
                     </div>    
                 </li>    
 
                 <li>
-                    <div class="important">
-                        <div class="star-icon">
+                    <div class="side-navigation-menu">
+                        <div class="side-naivgation-menu-icon">
                             <i class="fa-regular fa-star"></i>
                         </div>
-                        <div class="important-title">Important</div>
+                        <div class="side-naivgation-menu-tittle">Important</div>
                     </div>
                 </li>
 
                 <li>
-                    <div class="plan">
-                        <div class="calendar-icon">
+                    <div class="side-navigation-menu">
+                        <div class="side-naivgation-menu-icon">
                             <i class="fa-regular fa-calendar"></i>
                         </div>
-                        <div class="plan-title">Planned</div>
+                        <div class="side-naivgation-menu-tittle">Planned</div>
                     </div>    
                 </li>
 
                 <li>
-                    <div class="assign">
-                        <div class="assign-icon">
+                    <div class="side-navigation-menu">
+                        <div class="side-naivgation-menu-icon">
                             <i class="fa-regular fa-user"></i>
                         </div>
-                        <div class="assigned-title">Assigned to me</div>
+                        <div class="side-naivgation-menu-tittle">Assigned to me</div>
                     </div>    
                 </li>
             
                 <li>
-                    <div class="task">
-                        <div class="home-icon">
+                    <div class="side-navigation-menu">
+                        <div class="side-naivgation-menu-icon">
                             <i class="fa-solid fa-house"></i>
                         </div>
-                        <div class="task-title">Tasks</div>
+                        <div class="side-naivgation-menu-tittle">Tasks</div>
                     </div>    
                 </li>
             </ul>
@@ -100,31 +102,31 @@
             </div>
 
             <div class="side-navigation-middle-container">
-                <div class="add-list-icon">
-                   <button><i class="fa-solid fa-plus"></i></button> 
-                </div>
-                <div class="add-list">
-                    <input type="text" placeholder="New list">
-                </div>    
-                <div class="create-group-icon">
-                    <i class="fa-solid fa-user-plus"></i>
-                </div>
+                <ul id="task-list">
+                    <li>
+                        <button><i class="fa-solid fa-plus"></i></button> 
+                        <div class="add-list">
+                            <input id="add-new-task" type="text" placeholder="New list">
+                        </div>    
+                        <i class="fa-solid fa-user-plus"></i>
+                    </li>   
+                </ul>
             </div>
 
             <div class="side-navigation-bottom">
-                <div class="message-icon">
+                <div class="side-navigation-bottom-icon">
                     <i class="fa-regular fa-envelope"></i>
                 </div>
-                <div class="calendar-icon">
+                <div class="side-navigation-bottom-icon">
                     <i class="fa-regular fa-calendar"></i>
                 </div>
-                <div class="group-icon">
+                <div class="side-navigation-bottom-icon">
                     <i class="fa-solid fa-user-group"></i>
                 </div>
-                <div class="paperclip-icon">
+                <div class="side-navigation-bottom-icon">
                     <i class="fa-solid fa-paperclip"></i>
                 </div>
-                <div class="check-icon">
+                <div class="side-navigation-bottom-icon">
                     <i class="fa-solid fa-check"></i>
                 </div>
             </div>
@@ -152,5 +154,6 @@
             </div>
         </div>
     </div>
+    <script src="scripts/ToDo.js"></script>
 </body>
 </html>

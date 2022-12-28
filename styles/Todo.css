@@ -32,9 +32,10 @@ body {
 
 .top-navigation .title {
     display: inline-block;
+    margin-top: 14px;
     margin-left: 20px;
     color:#faf9f8;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .top-navigation .middle-container {
@@ -91,37 +92,26 @@ body {
 }
 
 .top-navigation .right-container div {
+    display: inline-block;
     width: 16px;
     height: 16px;
     font-size: larger;
     color: white;
     background-color:  #2564CF;
     padding: 0 14px;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
-.top-navigation .right-container .setting-icon {
-    display: inline-block;
+.top-navigation .right-container div:first-child{
     margin-left: 280px;
 }
 
-.top-navigation .right-container .help-icon {
-    display: inline-block;
-}
-
-.top-navigation .right-container .megaphone-icon {
-    display: inline-block;
-}
-
-.top-navigation .right-container .user-icon {
-    display: inline-block;
-}
 
 .side-navigation {
     width:290px;
     height:560px;
     display: inline-block;
-    box-shadow: 0.5px 0px 2px gray;
+    box-shadow: -2.5px 0px 8px gray;
 }
 
 .side-navigation-header {
@@ -146,70 +136,19 @@ body {
     background-color: transparent;
 }
 
-.my-day {
+.side-navigation ul {
+    list-style: none;
+}
+
+.side-navigation .side-navigation-content .side-navigation-menu {
     padding: 12px 24px;
     width: 242px;
     height: 20px;
 }
-.my-day-icon {
-    display: inline-block;
-}
-.my-day-tittle {
-    display: inline-block;
-    margin-left: 16px;
-}
 
-.important {
-    width: 242px;
-    height: 20px;
-    padding: 12px 24px;
-}
-
-.star-icon {
-    display: inline-block;
+.side-navigation .side-navigation-content .side-navigation-menu > div{
+    display:inline-block;
     background-color: transparent;
-}
-
-.important-title {
-    display: inline-block;
-    margin-left: 16px;
-}
-
-.plan {
-    padding: 12px 24px;
-    width: 242px;
-    height: 20px;
-}
-.calendar-icon {
-    display: inline-block;
-}
-.plan-title {
-    display: inline-block;
-    margin-left: 16px;
-}
-.assign {
-    padding: 12px 24px;
-    width: 242px;
-    height: 20px;
-}
-.assign-icon {
-    display: inline-block;
-}
-.assigned-title {
-    display: inline-block;
-    margin-left: 16px;
-}
-.task {
-    padding: 12px 24px;
-    width: 242px;
-    height: 20px;
-}
-.home-icon {
-    display: inline-block;
-}
-.task-title {
-    display: inline-block;
-    margin-left: 16px;
 }
 
 .side-navigation-content li:hover {
@@ -218,26 +157,32 @@ body {
 
 .side-navigation .side-navigation-line hr {
     width:270px;
+    margin-top:15px;
     margin-left:12px;
     border-top: 1px solid grey;
 }
 
 .side-navigation .side-navigation-middle-container {
-    height: 20px;
-    padding: 20px 0px 12px 24px;
+    height: 160px;
+    margin: 20px 20px;
 }
 
-.side-navigation .side-navigation-middle-container .add-list-icon {
-    display: inline-block;
-}
+.side-navigation .side-navigation-middle-container #task-list >li{
+    height: 35px;
+    padding-right: 12px; 
+    padding-top: 10px;
+} 
 
-
-.side-navigation .side-navigation-middle-container .add-list-icon button {
+.side-navigation .side-navigation-middle-container #task-list li > button {
     width: 20px;
     height: 20px;
     color: #2564CF;
     background-color: transparent;
     font-size: larger;
+}
+
+.side-navigation .side-navigation-middle-container .button {
+    display: inline-block;
 }
 
 .side-navigation .side-navigation-middle-container .add-list {
@@ -254,9 +199,11 @@ body {
     width: 162px;
     height: 20px;
     padding-left: 16px;
+    background-color: transparent;
+    font-size: 14px;
 }
 
-.side-navigation .side-navigation-middle-container .create-group-icon {
+.side-navigation .side-navigation-middle-container #task-list li > i:last-child {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -265,38 +212,41 @@ body {
     text-align: right;
 }
 
+.side-navigation .side-navigation-middle-container li:hover {
+    background-color: #f5f5f5;
+}
+
+.side-navigation .side-navigation-middle-container #task-list li i:first-child {
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    font-size: larger;
+    display: inline-block;
+} 
+
+.side-navigation .side-navigation-middle-container #task-list li > span {
+    display: inline-block;
+    height: 35px;
+    padding-left: 20px;
+}
+
+.side-navigation .side-navigation-middle-container #task-list li:last-child {
+    height: 35px;
+}
+
 .side-navigation .side-navigation-bottom div {
     width: 54px;
     height: 18px;
     font-size: larger;
     background-color:  transparent;
     padding: 12px 0;
-    margin-top:170px;
+    margin-top:10px;
     text-align: center;
+    display: inline-block;
 }
 
 .side-navigation .side-navigation-bottom div:hover {
     background-color: #f5f5f5;
-}
-
-.side-navigation .side-navigation-bottom .message-icon {
-    display: inline-block;
-}
-
-.side-navigation .side-navigation-bottom .calendar-icon {
-    display: inline-block;
-}
-
-.side-navigation .side-navigation-bottom .group-icon {
-    display: inline-block;
-}
-
-.side-navigation .side-navigation-bottom .paperclip-icon {
-    display: inline-block;
-}
-
-.side-navigation .side-navigation-bottom .check-icon {
-    display: inline-block;
 }
 
 .main-container {
@@ -352,7 +302,8 @@ body {
     display: inline-block;
     color: #2564CF;
     vertical-align: top;
-    margin-top:16px;
+    margin-top:14px;
+    margin-left:14px;
 }
 
 .main-container .task .new-task {
