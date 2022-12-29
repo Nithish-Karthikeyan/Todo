@@ -8,6 +8,10 @@ body {
     font-family: "Segoe","Segoe UI","Arial","Sans-serif";
 }
 
+button, input {
+    background-color: transparent;
+}
+
 .top-navigation {
     width:100%;
     height:50px;
@@ -109,7 +113,7 @@ body {
 
 .side-navigation {
     width:290px;
-    height:560px;
+    height:530px;
     display: inline-block;
     box-shadow: -2.5px 0px 8px gray;
 }
@@ -120,10 +124,6 @@ body {
     padding-right: 24px;
     height: 48px;
     width:242px;
-}
-
-.side-navigation .side-navigation-header .side-navigation-button button {
-    background-color: transparent;
 }
 
 .side-navigation-button i {
@@ -140,12 +140,6 @@ body {
     list-style: none;
 }
 
-.side-navigation .side-navigation-content .side-navigation-menu {
-    padding: 12px 24px;
-    width: 242px;
-    height: 20px;
-}
-
 .side-navigation .side-navigation-content .side-navigation-menu > div{
     display:inline-block;
     background-color: transparent;
@@ -156,24 +150,18 @@ body {
 }
 
 .side-navigation .side-navigation-line hr {
-    width:270px;
+    width: 250px;
     margin-top:15px;
-    margin-left:12px;
     border-top: 1px solid grey;
 }
 
-.side-navigation .side-navigation-middle-container {
-    height: 160px;
-    margin: 20px 20px;
-}
-
-.side-navigation .side-navigation-middle-container #task-list >li{
+.side-navigation .side-navigation-content #task-list >li{
     height: 35px;
     padding-right: 12px; 
     padding-top: 10px;
 } 
 
-.side-navigation .side-navigation-middle-container #task-list li > button {
+.side-navigation .side-navigation-content #task-list div:last-child > button {
     width: 20px;
     height: 20px;
     color: #2564CF;
@@ -181,66 +169,57 @@ body {
     font-size: larger;
 }
 
-.side-navigation .side-navigation-middle-container .button {
+.side-navigation .side-navigation-content .add-list {
     display: inline-block;
 }
 
-.side-navigation .side-navigation-middle-container .add-list {
-    display: inline-block;
-}
-
-.side-navigation .side-navigation-middle-container .add-list input::placeholder {
+.side-navigation .side-navigation-content .add-list input::placeholder {
     color:#2564CF;
     font-size: larger ;
 }
 
-.side-navigation .side-navigation-middle-container .add-list input {
+.side-navigation .side-navigation-content .add-list input {
     outline: none;
     width: 162px;
     height: 20px;
     padding-left: 16px;
-    background-color: transparent;
     font-size: 14px;
 }
 
-.side-navigation .side-navigation-middle-container #task-list li > i:last-child {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-color: transparent;
+.side-navigation .side-navigation-content #task-list div:last-child > i:last-child {
     color: #2564CF;
-    text-align: right;
 }
 
-.side-navigation .side-navigation-middle-container li:hover {
-    background-color: #f5f5f5;
-}
-
-.side-navigation .side-navigation-middle-container #task-list li i:first-child {
-    width: 20px;
-    height: 20px;
+.side-navigation .side-navigation-content #task-list div:last-child i:first-child {
     background-color: transparent;
     font-size: larger;
-    display: inline-block;
 } 
 
-.side-navigation .side-navigation-middle-container #task-list li > span {
+.side-navigation .side-navigation-content #task-list li > span {
     display: inline-block;
     height: 35px;
     padding-left: 20px;
 }
 
-.side-navigation .side-navigation-middle-container #task-list li:last-child {
-    height: 35px;
+.side-navigation .side-navigation-content #task-list li > i {
+    padding-left: 20px;
+}
+
+.side-navigation .side-navigation-content #task-list div:last-child {
+    padding-left: 20px;
+    overflow-y:initial;
+}
+
+.side-navigation .side-navigation-content #task-list div:last-child:hover {
+    background-color: #f5f5f5;
 }
 
 .side-navigation .side-navigation-bottom div {
     width: 54px;
-    height: 18px;
+    height: 14px;
     font-size: larger;
     background-color:  transparent;
-    padding: 12px 0;
-    margin-top:10px;
+    padding: 14px 0;
     text-align: center;
     display: inline-block;
 }
@@ -249,11 +228,16 @@ body {
     background-color: #f5f5f5;
 }
 
+.side-navigation-content {
+    height: 400px;
+    overflow-y: scroll;
+}
+
 .main-container {
     display: inline-block;
     vertical-align: top;
     width:968px;
-    height: 560px;
+    height: 530px;
     background-color: #faf9f8;
 }
 

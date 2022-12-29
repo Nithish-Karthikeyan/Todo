@@ -50,8 +50,8 @@
         </div>
 
         <div class="side-navigation-content">
-            <ul>
-                <li>
+            <ul id = "task-list">
+                <li onclick="todayTask()">
                     <div class="side-navigation-menu">
                         <div class="side-naivgation-menu-icon">
                             <i class="fa-regular fa-sun"></i>
@@ -60,7 +60,7 @@
                     </div>    
                 </li>    
 
-                <li>
+                <li onclick="importantTask()">
                     <div class="side-navigation-menu">
                         <div class="side-naivgation-menu-icon">
                             <i class="fa-regular fa-star"></i>
@@ -69,7 +69,7 @@
                     </div>
                 </li>
 
-                <li>
+                <li onclick="plannedTask()">
                     <div class="side-navigation-menu">
                         <div class="side-naivgation-menu-icon">
                             <i class="fa-regular fa-calendar"></i>
@@ -78,7 +78,7 @@
                     </div>    
                 </li>
 
-                <li>
+                <li onclick="assignedTask()">
                     <div class="side-navigation-menu">
                         <div class="side-naivgation-menu-icon">
                             <i class="fa-regular fa-user"></i>
@@ -87,7 +87,7 @@
                     </div>    
                 </li>
             
-                <li>
+                <li onclick="task()">
                     <div class="side-navigation-menu">
                         <div class="side-naivgation-menu-icon">
                             <i class="fa-solid fa-house"></i>
@@ -95,55 +95,54 @@
                         <div class="side-naivgation-menu-tittle">Tasks</div>
                     </div>    
                 </li>
+
+                <li> 
+                    <div class="side-navigation-line">
+                        <hr>
+                    </div>
+                </li>
+
+                <div>
+                    <button><i class="fa-solid fa-plus"></i></button> 
+                    <div class="add-list">
+                        <input onmousedown="getTask()"  id="add-new-task" type="text" placeholder="New list">
+                    </div>    
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>  
             </ul>
+        </div>
 
-            <div class="side-navigation-line">
-                <hr>
+        <div class="side-navigation-bottom">
+            <div class="side-navigation-bottom-icon">
+                <i class="fa-regular fa-envelope"></i>
             </div>
-
-            <div class="side-navigation-middle-container">
-                <ul id="task-list">
-                    <li>
-                        <button><i class="fa-solid fa-plus"></i></button> 
-                        <div class="add-list">
-                            <input id="add-new-task" type="text" placeholder="New list">
-                        </div>    
-                        <i class="fa-solid fa-user-plus"></i>
-                    </li>   
-                </ul>
+            <div class="side-navigation-bottom-icon">
+                <i class="fa-regular fa-calendar"></i>
             </div>
-
-            <div class="side-navigation-bottom">
-                <div class="side-navigation-bottom-icon">
-                    <i class="fa-regular fa-envelope"></i>
-                </div>
-                <div class="side-navigation-bottom-icon">
-                    <i class="fa-regular fa-calendar"></i>
-                </div>
-                <div class="side-navigation-bottom-icon">
-                    <i class="fa-solid fa-user-group"></i>
-                </div>
-                <div class="side-navigation-bottom-icon">
-                    <i class="fa-solid fa-paperclip"></i>
-                </div>
-                <div class="side-navigation-bottom-icon">
-                    <i class="fa-solid fa-check"></i>
-                </div>
+            <div class="side-navigation-bottom-icon">
+                <i class="fa-solid fa-user-group"></i>
             </div>
-        </div>    
+            <div class="side-navigation-bottom-icon">
+                <i class="fa-solid fa-paperclip"></i>
+            </div>
+            <div class="side-navigation-bottom-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+        </div>
+            
     </div>
 
     <div class ="main-container">
         <div class="main-container-header">
-            <div class="main-container-icon">
+            <div id="main-title-icon" class="main-container-icon">
                 <i class="fa-regular fa-sun"></i>
             </div>
-            <div class="main-container-title">
+            <div id = "task-title" class="main-container-title">
                 <h2>My Day</h2>
             </div>
             <div class="current-date">
                 <p id="date"></p>
-            </div>
+            </div> 
         </div>
         <div class = "task">
             <div class="task-status-icon">
