@@ -6,6 +6,7 @@
 
 body {
     font-family: "Segoe","Segoe UI","Arial","Sans-serif";
+    font-weight:lighter;
 }
 
 button, input {
@@ -14,7 +15,7 @@ button, input {
 
 .top-navigation {
     width:100%;
-    height:50px;
+    height:48px;
     background-color: #2564CF;
 }
 
@@ -110,10 +111,17 @@ button, input {
     margin-left: 280px;
 }
 
+.side-navigation .side-navigation-content {
+    display: block;
+}
+
+.side-navigation .side-navigation-bottom {
+    display: block;
+}
 
 .side-navigation {
     width:290px;
-    height:530px;
+    height:527px;
     display: inline-block;
     box-shadow: -2.5px 0px 8px gray;
 }
@@ -150,15 +158,13 @@ button, input {
 }
 
 .side-navigation .side-navigation-line hr {
-    width: 250px;
-    margin-top:15px;
+    width: 270px;
+    margin:10px 10px;
     border-top: 1px solid grey;
 }
 
-.side-navigation .side-navigation-content #task-list >li{
-    height: 35px;
-    padding-right: 12px; 
-    padding-top: 10px;
+.side-navigation .side-navigation-content #task-list >li{ 
+    padding: 6px 24px;
 } 
 
 .side-navigation .side-navigation-content #task-list div:last-child > button {
@@ -198,16 +204,12 @@ button, input {
 .side-navigation .side-navigation-content #task-list li > span {
     display: inline-block;
     height: 35px;
-    padding-left: 20px;
-}
-
-.side-navigation .side-navigation-content #task-list li > i {
-    padding-left: 20px;
+    padding-left: 10px;
 }
 
 .side-navigation .side-navigation-content #task-list div:last-child {
     padding-left: 20px;
-    overflow-y:initial;
+    height: 30px;
 }
 
 .side-navigation .side-navigation-content #task-list div:last-child:hover {
@@ -216,7 +218,6 @@ button, input {
 
 .side-navigation .side-navigation-bottom div {
     width: 54px;
-    height: 14px;
     font-size: larger;
     background-color:  transparent;
     padding: 14px 0;
@@ -230,14 +231,14 @@ button, input {
 
 .side-navigation-content {
     height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .main-container {
     display: inline-block;
     vertical-align: top;
-    width:968px;
-    height: 530px;
+    width: 968px;
+    height: 525px;
     background-color: #faf9f8;
 }
 
@@ -263,7 +264,8 @@ button, input {
     height:52px;
     margin-left: 20px;
     background-color: #ffffff;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     box-shadow: 0.5px 1px 2px 0.5px gray;
 }
 
@@ -303,3 +305,81 @@ button, input {
 .main-container .main-container-header .current-date p {
     font-size: 12px;
 }
+
+.main-container .manage-task {
+    width:880px;
+    height:52px;
+    margin-left: 20px;
+    background-color: #fAf9f8;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0.4px 1px 2px 0.5px grey;
+}
+
+.main-container .manage-task .manage-task-icons {
+    padding: 10px 16px;
+    display: inline-block;
+}
+
+.main-container .manage-task .manage-task-icons > div {
+    display: inline-block;
+    text-align: center;
+    width:28px;
+    height:28px;
+    padding: 4px;
+}
+
+.main-container .manage-task .manage-task-icons > div:hover {
+    background-color: #ffffff;
+}
+
+.main-container .manage-task .add-button {
+    display: inline-block;
+    width: 22px;
+    height: 30px;
+    margin-left: 650px;
+    background-color: #ffffff;
+    padding: 0 10px;
+    text-align: center;
+    border: 1px solid #e1dfdd;
+}
+
+.main-container .manage-task .add-button button {
+    color:  #a19f9d;
+    cursor:not-allowed;
+}
+
+.main-container #task-container {
+    width:960px;
+    height:315px;
+    overflow-y: auto;
+    padding-top: 8px;
+}
+
+.main-container #task-container .create-task i:first-child {
+    display: inline-block;
+    color: #2564CF;
+    text-align: center;
+    margin-top: 18px;
+}
+
+.main-container #task-container .create-task p {
+    display: inline-block;
+    padding: 8px 14px;
+    width: 740px;
+}
+
+.main-container #task-container .create-task div:last-child {
+    display: inline-block;
+    padding: 0 20px; 
+}
+
+.main-container #task-container .create-task {
+    width:850px;
+    height:52px;
+    margin:8px 0 0 20px;
+    border-radius: 2px;
+    padding: 0 16px;
+    background-color: #ffffff;
+    box-shadow: 0.4px 1px 2px 0.5px grey;       
+} 

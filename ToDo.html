@@ -51,61 +51,13 @@
 
         <div class="side-navigation-content">
             <ul id = "task-list">
-                <li onclick="todayTask()">
-                    <div class="side-navigation-menu">
-                        <div class="side-naivgation-menu-icon">
-                            <i class="fa-regular fa-sun"></i>
-                        </div>
-                        <div class="side-naivgation-menu-tittle">My Day</div>
-                    </div>    
-                </li>    
-
-                <li onclick="importantTask()">
-                    <div class="side-navigation-menu">
-                        <div class="side-naivgation-menu-icon">
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <div class="side-naivgation-menu-tittle">Important</div>
-                    </div>
-                </li>
-
-                <li onclick="plannedTask()">
-                    <div class="side-navigation-menu">
-                        <div class="side-naivgation-menu-icon">
-                            <i class="fa-regular fa-calendar"></i>
-                        </div>
-                        <div class="side-naivgation-menu-tittle">Planned</div>
-                    </div>    
-                </li>
-
-                <li onclick="assignedTask()">
-                    <div class="side-navigation-menu">
-                        <div class="side-naivgation-menu-icon">
-                            <i class="fa-regular fa-user"></i>
-                        </div>
-                        <div class="side-naivgation-menu-tittle">Assigned to me</div>
-                    </div>    
-                </li>
-            
-                <li onclick="task()">
-                    <div class="side-navigation-menu">
-                        <div class="side-naivgation-menu-icon">
-                            <i class="fa-solid fa-house"></i>
-                        </div>
-                        <div class="side-naivgation-menu-tittle">Tasks</div>
-                    </div>    
-                </li>
-
-                <li> 
-                    <div class="side-navigation-line">
-                        <hr>
-                    </div>
-                </li>
-
+                <div class="side-navigation-line">
+                    <hr>
+                </div>
                 <div>
                     <button><i class="fa-solid fa-plus"></i></button> 
                     <div class="add-list">
-                        <input onmousedown="getTask()"  id="add-new-task" type="text" placeholder="New list">
+                        <input onmousedown="addTaskCollection()"  id="add-new-task-collection" type="text" placeholder="New list">
                     </div>    
                     <i class="fa-solid fa-user-plus"></i>
                 </div>  
@@ -128,8 +80,7 @@
             <div class="side-navigation-bottom-icon">
                 <i class="fa-solid fa-check"></i>
             </div>
-        </div>
-            
+        </div>  
     </div>
 
     <div class ="main-container">
@@ -149,9 +100,26 @@
                 <i class="fa-regular fa-circle"></i>
             </div>
             <div class="new-task">
-                <input type="text" placeholder="Add a task">
+                <input id="add-new-task" onmousedown="addTask()" type="text" placeholder="Add a task">
             </div>
         </div>
+        <div id="manage-task" class="manage-task">
+            <div class = "manage-task-icons">
+                <div class = "manage-task-icon">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <div class = "manage-task-icon">
+                    <i class="fa-regular fa-bell"></i>
+                </div>
+                <div class = "manage-task-icon">
+                    <i class="fa-solid fa-repeat"></i> 
+                </div>  
+            </div>
+            <div class="add-button">
+                <button>Add</button>
+            </div>
+        </div>
+        <div id="task-container"></div>
     </div>
     <script src="scripts/ToDo.js"></script>
 </body>
