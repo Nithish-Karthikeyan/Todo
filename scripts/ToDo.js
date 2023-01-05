@@ -65,6 +65,7 @@
       listContainer.appendChild(categoryContainer);
       list.appendChild(listContainer);
       list.insertBefore(listContainer, list.children[i]);
+      selectCategory(null);
     }
   }
 
@@ -122,9 +123,8 @@
         icon: categoryIcon,
       });
       list.innerHTML = "";
-      getCategory();
       chosenCategory = category[categoryId - 1];
-      selectCategory(null);
+      getCategory();
       eventListener();
     }
   }
@@ -139,7 +139,7 @@
       let textContainer = createElement("p");
       let task = document.createTextNode(newTask.value);
 
-      if (newTask.value && task.textContent.trim() != "") {
+      if (newTask.value && task.textContent.trim() !== "") {
         container.innerHTML = '<i class="fa-regular fa-circle"></i>';
         importantStatus.innerHTML = '<i class="fa-regular fa-star"></i>';
         textContainer.appendChild(task);
@@ -201,7 +201,6 @@
     newCategory.addEventListener("keypress", addCategory);
 
     for (i = 0; i < category.length; i++) {
-      console.log(selectedCategory[i]);
       selectedCategory[i].addEventListener("click", selectCategory);
     }
   }
@@ -218,11 +217,13 @@
       mainContainer.innerHTML = chosenCategory.name;
       mainContainerIcon.innerHTML = chosenCategory.icon;
       document.title = chosenCategory.name;
+      taskContainer.innerHTML = "";
       renderTask();
     } else {
       for (let i = 0; i < category.length; i++) {
+        selectedCategory[i].classList.remove("selected-menu");
         if (event.target.id == category[i].id) {
-          console.log(category[i]);
+          selectedCategory[i].classList.add("selected-menu");
           mainContainer.innerHTML = category[i].name;
           mainContainerIcon.innerHTML = category[i].icon;
           document.title = category[i].name;

@@ -9,13 +9,13 @@
 </head>
 <body>
     <div class="top-navigation">
-        <div class="left-container">
+        <div class="top-left-container">
             <button class="button"><span class="material-symbols-outlined">
                 apps
                 </span></button>
             <p class="title">To Do</p>
         </div>
-        <div class="middle-container">
+        <div class="top-middle-container">
             <div class="search-bar-left">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
@@ -26,7 +26,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </div>
         </div>
-        <div class="right-container">
+        <div class="top-right-container">
             <div class = "setting-icon">
                 <i class="fa-solid fa-gear"></i>
             </div>
@@ -86,10 +86,8 @@
     <div class ="main-container">
         <div class="main-container-header">
             <div id="main-title-icon" class="main-container-icon">
-                <i class="fa-regular fa-sun"></i>
             </div>
             <div id = "task-title" class="main-container-title">
-                <p>My Day</p>
             </div>
             <div class="current-date">
                 <p id="date"></p>
@@ -120,6 +118,74 @@
             </div>
         </div>
         <div id="task-container"></div>
+    </div>
+
+    <div class = "right-container">
+        <div class = "task-details">
+            <div class = "task-title">
+                <i class="fa-regular fa-circle"></i>
+                <input type="text" value="Task">
+                <i class="fa-regular fa-star"></i>' 
+            </div>
+            <div class="task-steps">
+                <i class="fa-regular fa-circle"></i>
+                <input type="text" placeholder="Add Step">  
+            </div>
+            <div class="section">
+                <button>
+                    <i class="fa-regular fa-sun"></i>
+                    <span>Add to My Day</span>
+                </button>
+            </div>
+            <div class = "task-section">
+                <div class = "task-section-item">
+                    <button>
+                        <i class="fa-regular fa-bell"></i>
+                        <p>Remind me</p>
+                    </button>
+                </div>
+                <div class = "task-section-item">
+                    <button>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <p>Add due date</p>
+                    </button>
+                </div>
+                <div class = "task-section-item">
+                    <button>
+                        <i class="fa-solid fa-repeat"></i>
+                        <p>Repeat</p>
+                    </button>
+                </div>
+            </div>
+            <div class="task-category">
+                <i class="fa-solid fa-tag"></i>
+                <input type = "text" placeholder="Pick a category">
+            </div>
+            <div class="add-file-to-task">
+                <button>
+                    <i class="fa-solid fa-paperclip"></i>
+                    <p>Add file</p>
+                </button>
+            </div>
+            <div class = "task-description">
+                <input type="text" placeholder="Add note">
+            </div>
+        </div>
+        <div class="task-details-footer">
+            <div class="exit-task-setting-icon">
+                <button>
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+            <div class="task-date">
+                <p>Created Today</p>
+            </div>
+            <div class="delete-task-icon">
+                <button>
+                    <i class="fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
     </div>
     <script src="scripts/ToDo.js"></script>
 </body>

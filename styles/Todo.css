@@ -19,17 +19,17 @@ button, input {
     background-color: #2564CF;
 }
 
-.top-navigation .left-container .button {
+.top-navigation .top-left-container .button {
     width: 16px;
     height: 16px;
     color: white;
     background-color: #2564CF;
     padding: 8px;
     font-size: 20px;
-    margin: 8px 10px 5px 0;
+    margin: 4px 10px 5px 8px;
 }
 
-.top-navigation .left-container {
+.top-navigation .top-left-container {
     display: inline-block;
     vertical-align: top;
     font-size: 20px;
@@ -37,13 +37,15 @@ button, input {
 
 .top-navigation .title {
     display: inline-block;
-    margin-top: 14px;
+    margin-top: 12px;
     margin-left: 20px;
     color:#faf9f8;
+    font-size: 16px;
     vertical-align: top;
+    font-weight: 600;
 }
 
-.top-navigation .middle-container {
+.top-navigation .top-middle-container {
     display: inline-block;
     width:346px;
     height: 32px;
@@ -53,7 +55,7 @@ button, input {
     margin-top:10px;
 }
 
-.top-navigation .middle-container .search-bar-left {
+.top-navigation .top-middle-container .search-bar-left {
     display: inline-block;
     font-size: 20px;
     vertical-align: middle;
@@ -61,30 +63,30 @@ button, input {
     color:#2564CF;
 }
 
-.top-navigation .middle-container .search-bar-middle {
+.top-navigation .top-middle-container .search-bar-middle {
     display: inline-block;
     margin-left: 10px;
     margin-top: 3px;
 }
 
-.top-navigation .middle-container .search-bar-middle input {
+.top-navigation .top-middle-container .search-bar-middle input {
     background-color: transparent;
     width:270px;
     height: 27px;
     outline: none;
 }
 
-.top-navigation .middle-container .search-bar-middle input::placeholder {
+.top-navigation .top-middle-container .search-bar-middle input::placeholder {
     color: transparent;
 }
 
-.top-navigation .middle-container .search-bar-middle input:focus::placeholder {
+.top-navigation .top-middle-container .search-bar-middle input:focus::placeholder {
     color: grey ;
     font-size: 16px;
     border: transparent;
 }
 
-.top-navigation .middle-container .search-bar-right {
+.top-navigation .top-middle-container .search-bar-right {
     display: inline-block;
     font-size: 24px;
     vertical-align: middle;
@@ -92,11 +94,11 @@ button, input {
     color:#2564CF;
 }
 
-.top-navigation .right-container {
+.top-navigation .top-right-container {
     display: inline-block;
 }
 
-.top-navigation .right-container div {
+.top-navigation .top-right-container div {
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -107,7 +109,7 @@ button, input {
     vertical-align: top;
 }
 
-.top-navigation .right-container div:first-child{
+.top-navigation .top-right-container div:first-child{
     margin-left: 280px;
 }
 
@@ -120,7 +122,7 @@ button, input {
 }
 
 .side-navigation {
-    width: 300px;
+    width: 290px;
     height: 529px;
     display: inline-block;
     box-shadow: -2.5px 0px 8px gray;
@@ -148,14 +150,23 @@ button, input {
     list-style: none;
 }
 
-.side-navigation .side-navigation-content .side-navigation-menu > div{
+.side-navigation .side-navigation-content li > div{
+    cursor: pointer;
     display:inline-block;
     background-color: transparent;
 }
 
-.side-navigation-content li:hover {
+.side-navigation .side-navigation-content #task-list .side-navigation-menu:hover {
+    cursor: pointer;
     background-color: #f5f5f5;
     font-weight: 600;
+}
+
+.side-navigation .side-navigation-content #task-list .selected-menu {
+    pointer-events: none;
+    background-color: #eff6fc;
+    font-weight: 600;
+    border-left: 2px solid #2564CF;
 }
 
 .side-navigation .side-navigation-content .side-navigation-line hr {
@@ -386,3 +397,222 @@ button, input {
     background-color: #ffffff;
     box-shadow: 0.4px 1px 2px 0.5px grey;       
 } 
+
+.right-container {
+    width: 350px;
+    height: 528px;
+    background-color: #faf9f8;
+    display: inline-block;
+    vertical-align: top;
+    box-shadow: -1px 0px 4px gray;
+}
+
+.right-container .task-details {
+    width:310px;
+    height:455px;
+    padding: 0 16px 0 24px;
+    margin-top: 16px;
+    overflow-y: auto;
+}
+
+.right-container .task-details > div{ 
+    border-radius: 5px;
+}
+
+.right-container .task-details .task-title {
+    background: #ffffff;
+    width: 260px;
+    height: 20px;
+    padding: 16px;
+    display: block;
+}
+
+.right-container .task-details .task-steps {
+    background: #ffffff;
+    width: 260px;
+    height: 20px;
+    padding: 16px;
+    display: block;
+    color: #2564CF;
+}
+
+.right-container .task-details .task-steps i {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+.right-container .task-details .task-steps input {
+    outline: none;
+    width: 230px;
+    height: 20px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.right-container .task-details .task-steps input::placeholder {
+    color: #2564CF;
+}
+
+.right-container .task-details .section {
+    margin: 8px 0;
+    width: 292px;
+    height: 52px;
+    background: #ffffff;
+    color: #2564CF;
+}
+
+.right-container .task-details .section > div{
+    border-radius: 5px;
+}
+
+.right-container .task-details .section button {
+    width: 292px;
+    height: 20px;
+    padding: 16px 0 16px 16px;
+    text-align: left;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #605e5c;
+}
+
+.right-container .task-details .section button i:first-child{
+    margin-right: 15px;
+}
+
+.right-container .task-details .task-section > div button i:first-child {
+    display: inline-block;
+    color: #605e5c;
+}
+
+.right-container .task-details .task-section > div button p:last-child {
+    display: inline-block;
+    margin: 0 16px;
+    color: #605e5c;
+}
+
+.right-container .task-details .task-section > div {
+    width:275px;
+    height:20px;
+    display: block;
+    font-size: 14px;
+    text-align: left;
+    padding: 16px 0 16px 16px;
+    background-color: #ffffff;
+}
+
+.right-container .task-details .task-category {
+    width:292px;
+    height:52px;
+    background-color: #ffffff;
+    margin-top:8px;
+}
+
+.right-container .task-details .task-section > div:nth-child(2) {
+    border-top: 1px solid #cabdaf;
+    border-bottom: 1px solid #cabdaf;
+}
+.right-container  .task-details .task-category i:first-child{
+    width:20px;
+    height:20px;
+    padding: 16px 0 16px 16px;
+    display: inline-block;
+}
+
+.right-container .task-details .task-category input:last-child{
+    width:220px;
+    height:30px;
+    padding: 8px 6px;
+    display: inline-block;
+    color: #605e5c;
+}
+
+.right-container .task-details .add-file-to-task {
+    width: 275px;
+    height:20px;
+    padding: 16px 0 16px 16px;
+    background-color: #ffffff;
+    margin-top:8px;
+}
+
+.right-container .task-details .add-file-to-task button > p {
+    margin-left: 16px;
+    color: #605e5c;
+    display: inline-block;
+}
+
+.right-container .task-details .task-description {
+    width:292px;
+    height: 75px;
+    margin: 8px 0;
+    background-color: #ffffff;
+}
+
+.right-container .task-details .task-description > input {
+    width: 265px;
+    margin: 16px 2px 2px 20px;
+    color: #a19f9d;
+    outline: none;
+}
+
+.right-container .task-details-footer {
+    width:310px;
+    height:25px;
+    padding: 16px 0;
+    margin: 0 24px;
+}
+
+.right-container .task-details-footer > div  {
+    display: inline-block;
+}
+
+.right-container .task-details-footer button {
+    width:30px;
+    height:30px;
+}
+
+.right-container .task-details-footer button i {
+    font-size: large;
+}
+
+.right-container .task-details-footer .task-date {
+    width: 225px;
+    height: 20px;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.right-container .task-details-footer button:hover {
+    background-color: #ffffff;
+}
+
+/* .right-container {
+    display: none;
+} */
+
+.main-container {
+    width: 630px; 
+    height: 525px;
+}
+
+.main-container .task {
+    width:580px;
+    height:52px;
+}
+
+.main-container .new-task input {
+    width: 510px;
+    height:44px;
+}
+
+.main-container .manage-task {
+    width:580px;
+    height:52px;
+}
+
+.main-container .manage-task .hide-add-button {
+    width: 22px;
+    height: 30px;
+    margin-left: 360px;
+}
