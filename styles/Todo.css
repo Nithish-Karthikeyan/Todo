@@ -154,6 +154,7 @@ button, input {
     cursor: pointer;
     display:inline-block;
     background-color: transparent;
+    pointer-events: none;
 }
 
 .side-navigation .side-navigation-content #task-list .side-navigation-menu:hover {
@@ -249,7 +250,7 @@ button, input {
 .main-container {
     display: inline-block;
     vertical-align: top;
-    width: 958px; 
+    width: 968px; 
     height: 525px;
     background-color: #faf9f8;
 }
@@ -283,7 +284,7 @@ button, input {
     box-shadow: 0.5px 1px 2px 0.5px gray;
 }
 
-.main-container .new-task input {
+.main-container .new-task .add-new-task {
     width: 810px;
     height:44px;
     padding:2px 14px 16px 18px;
@@ -363,39 +364,41 @@ button, input {
     cursor:not-allowed;
 }
 
-.main-container #task-container {
+.main-container .task-container {
     width:960px;
     height:315px;
     overflow-y: auto;
     padding-top: 8px;
 }
 
-.main-container #task-container .create-task i:first-child {
+.main-container .task-container .create-task i:first-child {
     display: inline-block;
     color: #2564CF;
     text-align: center;
     margin-top: 18px;
 }
 
-.main-container #task-container .create-task p {
+.main-container .task-container .create-task .added-task {
     display: inline-block;
     padding: 8px 14px;
     width: 740px;
+    pointer-events: none;
 }
 
-.main-container #task-container .create-task div:last-child {
+.main-container .task-container .create-task div:last-child {
     display: inline-block;
     padding: 0 20px; 
 }
 
-.main-container #task-container .create-task {
+.main-container .task-container .create-task {
     width:850px;
     height:52px;
     margin:8px 0 0 20px;
     border-radius: 2px;
     padding: 0 16px;
     background-color: #ffffff;
-    box-shadow: 0.4px 1px 2px 0.5px grey;       
+    box-shadow: 0.4px 1px 2px 0.5px grey; 
+    cursor: pointer;      
 } 
 
 .right-container {
@@ -427,6 +430,20 @@ button, input {
     display: block;
 }
 
+.right-container .task-details .task-title i{
+    font-size: large;
+    color: #2564CF;
+}
+
+.right-container .task-details .task-title input {
+    padding: 0 10px;
+    width: 190px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+}
+
 .right-container .task-details .task-steps {
     background: #ffffff;
     width: 260px;
@@ -440,14 +457,16 @@ button, input {
     width: 20px;
     height: 20px;
     display: inline-block;
+    font-size: large;
 }
 
 .right-container .task-details .task-steps input {
     outline: none;
-    width: 230px;
+    width: 200px;
     height: 20px;
     display: inline-block;
     font-size: 16px;
+    padding: 0 10px;
 }
 
 .right-container .task-details .task-steps input::placeholder {
@@ -548,11 +567,18 @@ button, input {
     background-color: #ffffff;
 }
 
-.right-container .task-details .task-description > input {
+.right-container .task-details .task-description > textarea {
     width: 265px;
-    margin: 16px 2px 2px 20px;
+    margin: 8px 2px 0 12px;
     color: #a19f9d;
     outline: none;
+    resize: none;
+    height: 60px;
+    font-family: "Segoe","Segoe UI","Arial","Sans-serif";
+}
+
+.right-container .task-details .task-description > textarea:focus {
+    color: #292827;
 }
 
 .right-container .task-details-footer {
@@ -587,32 +613,78 @@ button, input {
     background-color: #ffffff;
 }
 
-/* .right-container {
+.hide-right-container {
     display: none;
-} */
+}
 
-.main-container {
+/*size for task - menu*/
+.resize-main-container {
     width: 630px; 
     height: 525px;
 }
 
-.main-container .task {
+.main-container .resize-task {
     width:580px;
     height:52px;
 }
 
-.main-container .new-task input {
+.main-container .new-task .resize-add-new-task {
     width: 510px;
     height:44px;
 }
 
-.main-container .manage-task {
+.main-container .resize-manage-task {
     width:580px;
+    height:52px;
+}
+
+.main-container .manage-task .resize-hide-add-button {
+    width: 22px;
+    height: 30px;
+    margin-left: 360px;
+}
+
+.main-container .resize-task-container{
+    width:625px;        
+}
+
+.main-container .resize-task-container .resize-create-task {
+    width:550px;
+}
+
+.main-container .resize-task-container .create-task .resize-added-task {
+    width:448px;
+}
+
+
+/* .side-navigation {
+    display: none;
+} */
+
+/*size for toggle*/
+/* .main-container {
+    width: 1280px; 
+    height: 525px;
+}
+
+.main-container .task {
+    width:1220px;
+    height:52px;
+}
+
+.main-container .new-task input {
+    width: 1120px;
+    height:30px;
+    margin-top: 8px;
+}
+
+.main-container .manage-task {
+    width:1220px;
     height:52px;
 }
 
 .main-container .manage-task .hide-add-button {
     width: 22px;
     height: 30px;
-    margin-left: 360px;
-}
+    margin-left: 980px;
+} */

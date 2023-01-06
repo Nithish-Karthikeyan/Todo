@@ -1,5 +1,5 @@
 (function () {
-  const category = [
+  const categories = [
     {
       id: 1,
       name: "My Day",
@@ -39,11 +39,25 @@
     "side-navigation-menu"
   );
   const taskContainer = document.getElementById("task-container");
-  let chosenCategory = category[0];
+  let selectedTask = document.getElementsByClassName("create-task");
+  let note = document.getElementById("task-note");
+  const exitTask = document.getElementById("exit-task-setting-icon");
+  const taskMenu = document.getElementById("right-container");
+
+  const middleContainer = document.getElementById("main-container");
+  const task = document.getElementById("task");
+  const manageTask = document.getElementById("manage-task");
+  const createTask = document.getElementById("create-task");
+  const AddedTask = document.getElementById("added-task");
+
+  const taskTitle = document.getElementById("display-task-title");
+
+  let chosenCategory = categories[0];
+  let chosenTask;
 
   function init() {
     displayDate();
-    getCategory();
+    renderCategory();
     eventListener();
     renderTask();
   }
@@ -51,16 +65,16 @@
   /**
    * Get the category from the category array and creates a list item for each category.
    */
-  function getCategory() {
-    for (let i = 0; i < category.length; i++) {
+  function renderCategory() {
+    for (let i = 0; i < categories.length; i++) {
       let listContainer = createElement("li");
       listContainer.setAttribute("class", "side-navigation-menu");
-      listContainer.setAttribute("id", category[i].id);
+      listContainer.setAttribute("id", categories[i].id);
       let iconContainer = createElement("div");
       iconContainer.className = "side-navigation-menu-icon";
       let categoryContainer = createElement("div");
-      iconContainer.innerHTML = category[i].icon;
-      categoryContainer.innerHTML = category[i].name;
+      iconContainer.innerHTML = categories[i].icon;
+      categoryContainer.innerHTML = categories[i].name;
       listContainer.appendChild(iconContainer);
       listContainer.appendChild(categoryContainer);
       list.appendChild(listContainer);
@@ -114,17 +128,17 @@
       } else {
         categoryName = "Untitled Task";
       }
-      let categoryId = category.length;
+      let categoryId = categories.length;
       let categoryIcon = '<i class="fa-solid fa-list-ul"></i>';
       newCategory.value = "";
-      category.push({
+      categories.push({
         id: ++categoryId,
         name: categoryName,
         icon: categoryIcon,
       });
       list.innerHTML = "";
-      chosenCategory = category[categoryId - 1];
-      getCategory();
+      chosenCategory = categories[categoryId - 1];
+      renderCategory();
       eventListener();
     }
   }
@@ -134,29 +148,20 @@
    */
   function addTask(event) {
     if (event.key == "Enter") {
-      let container = createElement("div");
-      let importantStatus = createElement("div");
-      let textContainer = createElement("p");
-      let task = document.createTextNode(newTask.value);
-
-      if (newTask.value && task.textContent.trim() !== "") {
-        container.innerHTML = '<i class="fa-regular fa-circle"></i>';
-        importantStatus.innerHTML = '<i class="fa-regular fa-star"></i>';
-        textContainer.appendChild(task);
+      if (newTask.value && newTask.value.trim() !== "") {
         let taskId = tasks.length;
-        let taskName = task.textContent;
+        let taskName = newTask.value;
         let selectedCategoryId = chosenCategory.id;
         tasks.push({
-          id: taskId,
+          id: ++taskId,
           name: taskName,
           categoryId: selectedCategoryId,
+          note: "",
         });
-        container.appendChild(textContainer);
-        container.className = "create-task";
-        container.appendChild(importantStatus);
-        taskContainer.appendChild(container);
-        taskContainer.insertBefore(container, taskContainer.children[0]);
         newTask.value = "";
+        taskContainer.innerHTML = "";
+        renderTask();
+        eventListener();
       }
     }
   }
@@ -165,12 +170,14 @@
    * Get all the tasks for a specific category
    */
   function renderTask() {
-    for (i = 0; i < tasks.length; i++) {
-      if (tasks[i].categoryId == chosenCategory.id) {
+    for (index = 0; index < tasks.length; index++) {
+      if (tasks[index].categoryId == chosenCategory.id) {
         let container = createElement("div");
         let importantStatus = createElement("div");
         let textContainer = createElement("p");
-        let task = document.createTextNode(tasks[i].name);
+        textContainer.setAttribute("class", "added-task");
+        container.setAttribute("id", tasks[index].id);
+        let task = document.createTextNode(tasks[index].name);
         textContainer.appendChild(task);
         container.innerHTML = '<i class="fa-regular fa-circle"></i>';
         importantStatus.innerHTML = '<i class="fa-regular fa-star"></i>';
@@ -199,9 +206,15 @@
   function eventListener() {
     newTask.addEventListener("keypress", addTask);
     newCategory.addEventListener("keypress", addCategory);
+    note.addEventListener("input", addNote);
+    exitTask.addEventListener("click", exitTaskMenu);
 
-    for (i = 0; i < category.length; i++) {
-      selectedCategory[i].addEventListener("click", selectCategory);
+    for (index = 0; index < categories.length; index++) {
+      selectedCategory[index].addEventListener("click", selectCategory);
+    }
+
+    for (let index = 0; index < tasks.length; index++) {
+      selectedTask[index].addEventListener("click", displayTaskMenu);
     }
   }
 
@@ -220,18 +233,47 @@
       taskContainer.innerHTML = "";
       renderTask();
     } else {
-      for (let i = 0; i < category.length; i++) {
-        selectedCategory[i].classList.remove("selected-menu");
-        if (event.target.id == category[i].id) {
-          selectedCategory[i].classList.add("selected-menu");
-          mainContainer.innerHTML = category[i].name;
-          mainContainerIcon.innerHTML = category[i].icon;
-          document.title = category[i].name;
-          chosenCategory = category[i];
+      for (let index = 0; index < categories.length; index++) {
+        selectedCategory[index].classList.remove("selected-menu");
+        if (event.target.id == categories[index].id) {
+          selectedCategory[index].classList.add("selected-menu");
+          mainContainer.innerHTML = categories[index].name;
+          mainContainerIcon.innerHTML = categories[index].icon;
+          document.title = categories[index].name;
+          chosenCategory = categories[index];
           taskContainer.innerHTML = "";
           renderTask();
+          eventListener();
         }
       }
+    }
+  }
+
+  /**
+   * When the user clicks on a task, the task menu will appear and the task title will be set to the title of the task menu
+   * @param event - the event that triggered the function
+   */
+  function displayTaskMenu(event) {
+    resizeMainContainer();
+    for (let index = 0; index < tasks.length; index++) {
+      if (event.target.id == tasks[index].id) {
+        console.log("1");
+        taskTitle.value = tasks[index].name;
+        chosenTask = tasks[index];
+        note.value = "";
+        note.value = chosenTask.note;
+      }
+    }
+  }
+
+  /**
+   * Add the note to the task.
+   * @param event - The event object.
+   */
+  function addNote(event) {
+    if (note.value && note.value.trim() !== "") {
+      let taskId = chosenTask.id;
+      tasks[--taskId].note = note.value;
     }
   }
 

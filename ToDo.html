@@ -83,7 +83,7 @@
         </div>  
     </div>
 
-    <div class ="main-container">
+    <div class ="main-container" id="main-container">
         <div class="main-container-header">
             <div id="main-title-icon" class="main-container-icon">
             </div>
@@ -93,15 +93,15 @@
                 <p id="date"></p>
             </div> 
         </div>
-        <div class = "task">
+        <div class = "task" id="task">
             <div class="task-status-icon">
                 <i class="fa-regular fa-circle"></i>
             </div>
             <div class="new-task">
-                <input id="add-new-task" type="text" placeholder="Add a task">
+                <input class="add-new-task "id="add-new-task" type="text" placeholder="Add a task">
             </div>
         </div>
-        <div id="manage-task" class="manage-task">
+        <div class="manage-task" id="manage-task">
             <div class = "manage-task-icons">
                 <div class = "manage-task-icon">
                     <i class="fa-solid fa-calendar-days"></i>
@@ -117,14 +117,14 @@
                 <button>Add</button>
             </div>
         </div>
-        <div id="task-container"></div>
+        <div class="task-container "id="task-container"></div>
     </div>
 
-    <div class = "right-container">
+    <div class = "right-container" id="right-container">
         <div class = "task-details">
             <div class = "task-title">
                 <i class="fa-regular fa-circle"></i>
-                <input type="text" value="Task">
+                <input id="display-task-title" type="text" value="Task">
                 <i class="fa-regular fa-star"></i>' 
             </div>
             <div class="task-steps">
@@ -168,11 +168,11 @@
                 </button>
             </div>
             <div class = "task-description">
-                <input type="text" placeholder="Add note">
+                <textarea id="task-note" type="text" placeholder="Add note"></textarea>
             </div>
         </div>
         <div class="task-details-footer">
-            <div class="exit-task-setting-icon">
+            <div id="exit-task-setting-icon">
                 <button>
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </button>
