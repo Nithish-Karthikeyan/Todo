@@ -47,20 +47,20 @@ button, input {
 
 .top-navigation .top-middle-container {
     display: inline-block;
-    width:346px;
+    width: 384px;
     height: 32px;
     background-color: #faf9f8;
-    border-radius: 2px;
-    margin-left: 330px;
-    margin-top:10px;
+    border-radius: 4px;
+    margin-left: 292px;
+    margin-top: 7px;
+    padding: 0 8px;
 }
 
 .top-navigation .top-middle-container .search-bar-left {
     display: inline-block;
-    font-size: 20px;
+    font-size: 16px;
     vertical-align: middle;
-    margin-left: 6px;
-    color:#2564CF;
+    color: #2564CF;
 }
 
 .top-navigation .top-middle-container .search-bar-middle {
@@ -71,7 +71,7 @@ button, input {
 
 .top-navigation .top-middle-container .search-bar-middle input {
     background-color: transparent;
-    width:270px;
+    width:325px;
     height: 27px;
     outline: none;
 }
@@ -88,7 +88,7 @@ button, input {
 
 .top-navigation .top-middle-container .search-bar-right {
     display: inline-block;
-    font-size: 24px;
+    font-size: 18px;
     vertical-align: middle;
     margin-left: 6px;
     color:#2564CF;
@@ -110,7 +110,7 @@ button, input {
 }
 
 .top-navigation .top-right-container div:first-child{
-    margin-left: 280px;
+    margin-left: 260px;
 }
 
 .side-navigation .side-navigation-content {
@@ -250,8 +250,8 @@ button, input {
 .main-container {
     display: inline-block;
     vertical-align: top;
-    width: 968px; 
-    height: 525px;
+    width: 76.6%; 
+    height: 100%;
     background-color: #faf9f8;
 }
 
@@ -275,8 +275,8 @@ button, input {
 }
 
 .main-container .task {
-    width:880px;
-    height:52px;
+    width:92%;
+    height:10%;
     margin-left: 20px;
     background-color: #ffffff;
     border-top-left-radius: 5px;
@@ -285,9 +285,9 @@ button, input {
 }
 
 .main-container .new-task .add-new-task {
-    width: 810px;
+    width: 312%;
     height:44px;
-    padding:2px 14px 16px 18px;
+    padding:2px 14px 14px 18px;
     background-color: transparent;
     outline: none;
     font-size: 18px;
@@ -322,7 +322,7 @@ button, input {
 }
 
 .main-container .manage-task {
-    width:880px;
+    width:92%;
     height:52px;
     margin-left: 20px;
     background-color: #fAf9f8;
@@ -352,7 +352,7 @@ button, input {
     display: inline-block;
     width: 22px;
     height: 30px;
-    margin-left: 650px;
+    margin-left: 75%;
     background-color: #ffffff;
     padding: 0 10px;
     text-align: center;
@@ -365,11 +365,22 @@ button, input {
 }
 
 .main-container .task-container {
-    width:960px;
+    width:100%;
     height:315px;
     overflow-y: auto;
     padding-top: 8px;
 }
+
+.main-container .task-container .create-task {
+    width:89%;
+    height:52px;
+    margin:8px 0 0 20px;
+    border-radius: 2px;
+    padding: 0 16px;
+    background-color: #ffffff;
+    box-shadow: 0.4px 1px 2px 0.5px grey; 
+    cursor: pointer;      
+} 
 
 .main-container .task-container .create-task i:first-child {
     display: inline-block;
@@ -381,28 +392,17 @@ button, input {
 .main-container .task-container .create-task .added-task {
     display: inline-block;
     padding: 8px 14px;
-    width: 740px;
+    width: 88%;
     pointer-events: none;
 }
 
 .main-container .task-container .create-task div:last-child {
     display: inline-block;
-    padding: 0 20px; 
 }
 
-.main-container .task-container .create-task {
-    width:850px;
-    height:52px;
-    margin:8px 0 0 20px;
-    border-radius: 2px;
-    padding: 0 16px;
-    background-color: #ffffff;
-    box-shadow: 0.4px 1px 2px 0.5px grey; 
-    cursor: pointer;      
-} 
 
 .right-container {
-    width: 350px;
+    width: 345px;
     height: 528px;
     background-color: #faf9f8;
     display: inline-block;
@@ -619,43 +619,23 @@ button, input {
 
 /*size for task - menu*/
 .resize-main-container {
-    width: 630px; 
+    width: 49%; 
     height: 525px;
-}
-
-.main-container .resize-task {
-    width:580px;
-    height:52px;
-}
-
-.main-container .new-task .resize-add-new-task {
-    width: 510px;
-    height:44px;
-}
-
-.main-container .resize-manage-task {
-    width:580px;
-    height:52px;
 }
 
 .main-container .manage-task .resize-hide-add-button {
     width: 22px;
     height: 30px;
-    margin-left: 360px;
+    margin-left: 60%;
 }
 
-.main-container .resize-task-container{
-    width:625px;        
+.main-container .task-container .create-task .resize-added-task {
+    width: 80%;
 }
 
-.main-container .resize-task-container .resize-create-task {
-    width:550px;
-}
-
-.main-container .resize-task-container .create-task .resize-added-task {
-    width:448px;
-}
-
+.main-container .new-task .resize-add-new-task {
+    width: 191%;
+}   
 
 /* .side-navigation {
     display: none;
@@ -665,22 +645,6 @@ button, input {
 /* .main-container {
     width: 1280px; 
     height: 525px;
-}
-
-.main-container .task {
-    width:1220px;
-    height:52px;
-}
-
-.main-container .new-task input {
-    width: 1120px;
-    height:30px;
-    margin-top: 8px;
-}
-
-.main-container .manage-task {
-    width:1220px;
-    height:52px;
 }
 
 .main-container .manage-task .hide-add-button {

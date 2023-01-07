@@ -45,13 +45,8 @@
   const taskMenu = document.getElementById("right-container");
 
   const middleContainer = document.getElementById("main-container");
-  const task = document.getElementById("task");
-  const manageTask = document.getElementById("manage-task");
-  const createTask = document.getElementById("create-task");
-  const AddedTask = document.getElementById("added-task");
-
   const taskTitle = document.getElementById("display-task-title");
-
+  const addButton = document.getElementById("hide-add-button");
   let chosenCategory = categories[0];
   let chosenTask;
 
@@ -275,6 +270,27 @@
       let taskId = chosenTask.id;
       tasks[--taskId].note = note.value;
     }
+  }
+
+  /**
+   * When the user clicks on the exit button in the task menu
+   * The task Menu will hide
+   */
+  function exitTaskMenu() {
+    taskMenu.classList.add("hide-right-container");
+    middleContainer.classList.remove("resize-main-container");
+    addButton.classList.remove("resize-hide-add-button");
+    newTask.classList.remove("resize-add-new-task");
+  }
+
+  /**
+   * When the user clicks on the task, the task menu will be displayed, the middle container will be resized
+   */
+  function resizeMainContainer() {
+    taskMenu.classList.remove("hide-right-container");
+    middleContainer.classList.add("resize-main-container");
+    addButton.classList.add("resize-hide-add-button");
+    newTask.classList.add("resize-add-new-task");
   }
 
   init();
