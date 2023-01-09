@@ -360,8 +360,8 @@ button, input {
 }
 
 .main-container .manage-task .hide-add-button button {
-    color:  #a19f9d;
-    cursor:not-allowed;
+    color:  #2564CF;
+    cursor: pointer;
 }
 
 .main-container .task-container {
@@ -400,6 +400,10 @@ button, input {
     display: inline-block;
 }
 
+.main-container .task-container .selected-task {
+    cursor:pointer;
+    background-color: #eff6fc;   
+}
 
 .right-container {
     width: 345px;
@@ -442,6 +446,18 @@ button, input {
     font-size: 16px;
     font-weight: 400;
     outline: none;
+}
+
+.right-container .task-details .task-title .hide-tick {
+    display: none;
+}
+
+.right-container .task-details .task-title .show-tick {
+    color: #2564CF;
+    margin-left: -19px;
+    margin-top: 5px;
+    font-size: 12px;
+    vertical-align: top;
 }
 
 .right-container .task-details .task-steps {

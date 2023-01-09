@@ -47,6 +47,7 @@
   const middleContainer = document.getElementById("main-container");
   const taskTitle = document.getElementById("display-task-title");
   const addButton = document.getElementById("hide-add-button");
+  let importantStatus = document.getElementsByClassName("important-icon");
   let chosenCategory = categories[0];
   let chosenTask;
 
@@ -74,8 +75,8 @@
       listContainer.appendChild(categoryContainer);
       list.appendChild(listContainer);
       list.insertBefore(listContainer, list.children[i]);
-      selectCategory(null);
     }
+    selectCategory(null);
   }
 
   /**
@@ -113,6 +114,29 @@
   }
 
   /**
+   * Listen to the event to be happen for the required element
+   */
+  function eventListener() {
+    newTask.addEventListener("keypress", addTask);
+    newCategory.addEventListener("keypress", addCategory);
+    note.addEventListener("input", addNote);
+    exitTask.addEventListener("click", exitTaskMenu);
+    addButton.addEventListener("click", addTask);
+
+    for (index = 0; index < categories.length; index++) {
+      selectedCategory[index].addEventListener("click", selectCategory);
+    }
+
+    for (let index = 0; index < tasks.length; index++) {
+      selectedTask[index].addEventListener("click", displayTaskMenu);
+    }
+
+    for (let index = 0; index < tasks.length; index++) {
+      importantStatus[index].addEventListener("click", markImportant);
+    }
+  }
+
+  /**
    * Creates a new category for the user where the user can add specific tasks
    */
   function addCategory(event) {
@@ -130,6 +154,7 @@
         id: ++categoryId,
         name: categoryName,
         icon: categoryIcon,
+        importantStatus: "false",
       });
       list.innerHTML = "";
       chosenCategory = categories[categoryId - 1];
@@ -142,16 +167,17 @@
    * Gets the task from the user and create list of task to the user
    */
   function addTask(event) {
-    if (event.key == "Enter") {
+    if (event.key == "Enter" || event.type == "click") {
       if (newTask.value && newTask.value.trim() !== "") {
         let taskId = tasks.length;
         let taskName = newTask.value;
         let selectedCategoryId = chosenCategory.id;
         tasks.push({
-          id: ++taskId,
+          id: "task_" + ++taskId,
           name: taskName,
           categoryId: selectedCategoryId,
           note: "",
+          important: false,
         });
         newTask.value = "";
         taskContainer.innerHTML = "";
@@ -168,21 +194,27 @@
     for (index = 0; index < tasks.length; index++) {
       if (tasks[index].categoryId == chosenCategory.id) {
         let container = createElement("div");
-        let importantStatus = createElement("div");
+        let importantContainer = createElement("div");
         let textContainer = createElement("p");
         textContainer.setAttribute("class", "added-task");
         container.setAttribute("id", tasks[index].id);
         let task = document.createTextNode(tasks[index].name);
         textContainer.appendChild(task);
         container.innerHTML = '<i class="fa-regular fa-circle"></i>';
-        importantStatus.innerHTML = '<i class="fa-regular fa-star"></i>';
+        importantContainer.className = "important-icon";
+        if (tasks[index].important == true) {
+          importantContainer.innerHTML = '<i class="fa-solid fa-star"></i>';
+        } else {
+          importantContainer.innerHTML = '<i class="fa-regular fa-star"></i>';
+        }
         container.appendChild(textContainer);
         container.className = "create-task";
-        container.appendChild(importantStatus);
+        container.appendChild(importantContainer);
         taskContainer.appendChild(container);
         taskContainer.insertBefore(container, taskContainer.children[0]);
       }
     }
+    highlightTask();
   }
 
   /**
@@ -196,24 +228,6 @@
   }
 
   /**
-   * Listen to the event to be happen for the required element
-   */
-  function eventListener() {
-    newTask.addEventListener("keypress", addTask);
-    newCategory.addEventListener("keypress", addCategory);
-    note.addEventListener("input", addNote);
-    exitTask.addEventListener("click", exitTaskMenu);
-
-    for (index = 0; index < categories.length; index++) {
-      selectedCategory[index].addEventListener("click", selectCategory);
-    }
-
-    for (let index = 0; index < tasks.length; index++) {
-      selectedTask[index].addEventListener("click", displayTaskMenu);
-    }
-  }
-
-  /**
    * It loops through the category array, and if the id of the clicked element matches the id of the
    * current category, it sets the mainContainer's title to the name of the category, the
    * mainContainer Icon to the icon of the category, the document's title will be changed to the name of the
@@ -222,10 +236,12 @@
    */
   function selectCategory(event) {
     if (event == null) {
+      let index = chosenCategory.id;
       mainContainer.innerHTML = chosenCategory.name;
       mainContainerIcon.innerHTML = chosenCategory.icon;
       document.title = chosenCategory.name;
       taskContainer.innerHTML = "";
+      selectedCategory[--index].classList.add("selected-menu");
       renderTask();
     } else {
       for (let index = 0; index < categories.length; index++) {
@@ -250,14 +266,31 @@
    */
   function displayTaskMenu(event) {
     resizeMainContainer();
+    removeHighlightTask();
     for (let index = 0; index < tasks.length; index++) {
       if (event.target.id == tasks[index].id) {
-        console.log("1");
-        taskTitle.value = tasks[index].name;
         chosenTask = tasks[index];
-        note.value = "";
+        taskTitle.value = tasks[index].name;
         note.value = chosenTask.note;
+        highlightTask();
       }
+    }
+  }
+
+  function highlightTask() {
+    if (chosenTask != null) {
+      for (let index = 0; index < tasks.length; index++) {
+        if (tasks[index].id == chosenTask["id"]) {
+          let highlightTask = document.getElementById(chosenTask.id);
+          highlightTask.classList.add("selected-task");
+        }
+      }
+    }
+  }
+
+  function removeHighlightTask() {
+    for (let index = 0; index < tasks.length; index++) {
+      selectedTask[index].classList.remove("selected-task");
     }
   }
 
@@ -291,6 +324,20 @@
     middleContainer.classList.add("resize-main-container");
     addButton.classList.add("resize-hide-add-button");
     newTask.classList.add("resize-add-new-task");
+  }
+
+  function markImportant(event) {
+    for (let index = 0; index < tasks.length; index++) {
+      if (event.target.id == tasks[index].id) {
+        chosenTask = tasks[index];
+        if (chosenTask.importantStatus == "false") {
+          tasks[--taskId].important = "true";
+        } else {
+          tasks[--taskId].important = "false";
+        }
+      }
+    }
+    renderTask();
   }
 
   init();
