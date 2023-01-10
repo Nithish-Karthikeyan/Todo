@@ -154,7 +154,6 @@
         id: ++categoryId,
         name: categoryName,
         icon: categoryIcon,
-        importantStatus: "false",
       });
       list.innerHTML = "";
       chosenCategory = categories[categoryId - 1];
@@ -177,12 +176,12 @@
           name: taskName,
           categoryId: selectedCategoryId,
           note: "",
-          important: false,
+          isImportant: false,
+          isCompleted: false,
         });
         newTask.value = "";
         taskContainer.innerHTML = "";
         renderTask();
-        eventListener();
       }
     }
   }
@@ -195,14 +194,21 @@
       if (tasks[index].categoryId == chosenCategory.id) {
         let container = createElement("div");
         let importantContainer = createElement("div");
-        let textContainer = createElement("p");
+        let textContainer = createElement("div");
+        let completeIcon = createElement("div");
+        let text = createElement("p");
         textContainer.setAttribute("class", "added-task");
         container.setAttribute("id", tasks[index].id);
+        textContainer.setAttribute("id", tasks[index].id);
+        completeIcon.setAttribute("class", "complete-icon");
         let task = document.createTextNode(tasks[index].name);
-        textContainer.appendChild(task);
-        container.innerHTML = '<i class="fa-regular fa-circle"></i>';
+        text.appendChild(task);
+        textContainer.appendChild(text);
+        completeIcon.innerHTML = '<i class="fa-regular fa-circle"></i>';
+        container.appendChild(completeIcon);
         importantContainer.className = "important-icon";
-        if (tasks[index].important == true) {
+        importantContainer.setAttribute("id", tasks[index].id);
+        if (tasks[index].isImportant == true) {
           importantContainer.innerHTML = '<i class="fa-solid fa-star"></i>';
         } else {
           importantContainer.innerHTML = '<i class="fa-regular fa-star"></i>';
@@ -215,6 +221,7 @@
       }
     }
     highlightTask();
+    eventListener();
   }
 
   /**
@@ -232,6 +239,7 @@
    * current category, it sets the mainContainer's title to the name of the category, the
    * mainContainer Icon to the icon of the category, the document's title will be changed to the name of the
    * category
+   *
    * @param event - the event that triggered the function
    */
   function selectCategory(event) {
@@ -328,16 +336,31 @@
 
   function markImportant(event) {
     for (let index = 0; index < tasks.length; index++) {
-      if (event.target.id == tasks[index].id) {
+      if (event.currentTarget.id == tasks[index].id) {
         chosenTask = tasks[index];
-        if (chosenTask.importantStatus == "false") {
-          tasks[--taskId].important = "true";
+        if (chosenTask.isImportant == false) {
+          tasks[index].isImportant = true;
         } else {
-          tasks[--taskId].important = "false";
+          tasks[index].isImportant = false;
         }
       }
     }
+    taskContainer.innerHTML = "";
     renderTask();
+    eventListener();
+  }
+
+  function completeTask(event) {
+    for (let index = 0; index < tasks.length; index++) {
+      if (event.currentTarget.id == tasks[index].id) {
+        chosenTask = tasks[index];
+        if (chosenTask.isCompleted == false) {
+          tasks[index].isCompleted = true;
+        } else {
+          tasks[index].isCompleted = false;
+        }
+      }
+    }
   }
 
   init();

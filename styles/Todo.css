@@ -382,16 +382,19 @@ button, input {
     cursor: pointer;      
 } 
 
-.main-container .task-container .create-task i:first-child {
-    display: inline-block;
+.main-container .task-container .create-task i {
     color: #2564CF;
+}
+
+.main-container .task-container .create-task div:first-child {
+    display: inline-block;
     text-align: center;
-    margin-top: 18px;
+    margin-top: 14px;
 }
 
 .main-container .task-container .create-task .added-task {
     display: inline-block;
-    padding: 8px 14px;
+    padding: 15px 14px;
     width: 88%;
     pointer-events: none;
 }
