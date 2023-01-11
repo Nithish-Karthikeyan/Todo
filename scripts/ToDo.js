@@ -48,6 +48,9 @@
   const taskTitle = document.getElementById("display-task-title");
   const addButton = document.getElementById("hide-add-button");
   let importantStatus = document.getElementsByClassName("important-icon");
+  let completeStatus = document.getElementsByClassName("complete-icon");
+  let taskCompleteStatus = document.getElementById("checkbox");
+  let taskImportantStatus = document.getElementById("important-status-icon");
   let chosenCategory = categories[0];
   let chosenTask;
 
@@ -134,6 +137,10 @@
     for (let index = 0; index < tasks.length; index++) {
       importantStatus[index].addEventListener("click", markImportant);
     }
+
+    for (let index = 0; index < tasks.length; index++) {
+      completeStatus[index].addEventListener("click", completeTask);
+    }
   }
 
   /**
@@ -171,12 +178,18 @@
         let taskId = tasks.length;
         let taskName = newTask.value;
         let selectedCategoryId = chosenCategory.id;
+        let importantStatus;
+        if (chosenCategory.id == categories[1].id) {
+          importantStatus = true;
+        } else {
+          importantStatus = false;
+        }
         tasks.push({
           id: "task_" + ++taskId,
           name: taskName,
           categoryId: selectedCategoryId,
           note: "",
-          isImportant: false,
+          isImportant: importantStatus,
           isCompleted: false,
         });
         newTask.value = "";
@@ -198,21 +211,22 @@
         let completeIcon = createElement("div");
         let text = createElement("p");
         textContainer.setAttribute("class", "added-task");
+        completeIcon.setAttribute("id", tasks[index].id);
         container.setAttribute("id", tasks[index].id);
         textContainer.setAttribute("id", tasks[index].id);
         completeIcon.setAttribute("class", "complete-icon");
         let task = document.createTextNode(tasks[index].name);
         text.appendChild(task);
         textContainer.appendChild(text);
-        completeIcon.innerHTML = '<i class="fa-regular fa-circle"></i>';
+        completeIcon.innerHTML = validateTaskCompleted(
+          tasks[index].isCompleted
+        );
         container.appendChild(completeIcon);
         importantContainer.className = "important-icon";
         importantContainer.setAttribute("id", tasks[index].id);
-        if (tasks[index].isImportant == true) {
-          importantContainer.innerHTML = '<i class="fa-solid fa-star"></i>';
-        } else {
-          importantContainer.innerHTML = '<i class="fa-regular fa-star"></i>';
-        }
+        importantContainer.innerHTML = validateTaskImportant(
+          tasks[index].isImportant
+        );
         container.appendChild(textContainer);
         container.className = "create-task";
         container.appendChild(importantContainer);
@@ -222,6 +236,22 @@
     }
     highlightTask();
     eventListener();
+  }
+
+  function validateTaskCompleted(isCompleted) {
+    if (isCompleted) {
+      return '<i class="fa-regular fa-circle-check"></i>';
+    } else {
+      return '<i class="fa-regular fa-circle"></i>';
+    }
+  }
+
+  function validateTaskImportant(isImportant) {
+    if (isImportant) {
+      return '<i class="fa-solid fa-star"></i>';
+    } else {
+      return '<i class="fa-regular fa-star"></i>';
+    }
   }
 
   /**
@@ -275,12 +305,22 @@
   function displayTaskMenu(event) {
     resizeMainContainer();
     removeHighlightTask();
+    renderNote(event);
+    highlightTask();
+  }
+
+  function renderNote(event) {
     for (let index = 0; index < tasks.length; index++) {
-      if (event.target.id == tasks[index].id) {
+      if (event.currentTarget.id == tasks[index].id) {
         chosenTask = tasks[index];
         taskTitle.value = tasks[index].name;
+        taskCompleteStatus.innerHTML = validateTaskCompleted(
+          tasks[index].isCompleted
+        );
+        taskImportantStatus.innerHTML = validateTaskImportant(
+          tasks[index].isImportant
+        );
         note.value = chosenTask.note;
-        highlightTask();
       }
     }
   }
@@ -336,6 +376,8 @@
 
   function markImportant(event) {
     for (let index = 0; index < tasks.length; index++) {
+      console.log(event.target.id);
+      console.log(event.currentTarget.id);
       if (event.currentTarget.id == tasks[index].id) {
         chosenTask = tasks[index];
         if (chosenTask.isImportant == false) {
@@ -347,6 +389,7 @@
     }
     taskContainer.innerHTML = "";
     renderTask();
+    renderNote(event);
     eventListener();
   }
 
@@ -361,6 +404,10 @@
         }
       }
     }
+    taskContainer.innerHTML = "";
+    renderTask();
+    renderNote(event);
+    eventListener();
   }
 
   init();

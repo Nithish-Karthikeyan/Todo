@@ -117,17 +117,18 @@
                 <button>Add</button>
             </div>
         </div>
-        <div class="task-container f"id="task-container"></div>
+        <div class="task-container" id="task-container"></div>
     </div>
 
     <div class = "right-container hide-right-container" id="right-container">
-        <div class = "task-details">
+        <div class = "task-header">
             <div class = "task-title">
-                <i id="checkbox" class="fa-regular fa-circle"></i>
-                <i id="tick-icon" class="fa-solid fa-check hide-tick"></i>
-                <input id="display-task-title" type="text" value="Task">
-                <i class="fa-regular fa-star"></i>' 
+                <div id="checkbox"></div>
+                <input id="display-task-title" class="display-task-title" type="text" value="Task">
+                <div id ="important-status-icon"></div>
             </div>
+        </div>
+        <div class="task-details">    
             <div class="task-steps">
                 <i class="fa-regular fa-circle"></i>
                 <input type="text" placeholder="Add Step">  
