@@ -11,6 +11,7 @@ body {
 
 button, input {
     background-color: transparent;
+    outline: none;
 }
 
 .top-navigation {
@@ -70,10 +71,8 @@ button, input {
 }
 
 .top-navigation .top-middle-container .search-bar-middle input {
-    background-color: transparent;
     width:325px;
     height: 27px;
-    outline: none;
 }
 
 .top-navigation .top-middle-container .search-bar-middle input::placeholder {
@@ -111,14 +110,6 @@ button, input {
 
 .top-navigation .top-right-container div:first-child{
     margin-left: 260px;
-}
-
-.side-navigation .side-navigation-content {
-    display: block;
-}
-
-.side-navigation .side-navigation-bottom {
-    display: block;
 }
 
 .side-navigation {
@@ -198,7 +189,6 @@ button, input {
 }
 
 .side-navigation .side-navigation-content .add-list input {
-    outline: none;
     width: 162px;
     height: 20px;
     padding-left: 16px;
@@ -289,7 +279,6 @@ button, input {
     height:44px;
     padding:2px 14px 14px 18px;
     background-color: transparent;
-    outline: none;
     font-size: 18px;
     vertical-align: top;
 }
@@ -315,9 +304,6 @@ button, input {
     display: block;
     color: #605e5c;
     margin-top:5px;
-}
-
-.main-container .main-container-header .current-date p {
     font-size: 12px;
 }
 
@@ -427,9 +413,7 @@ button, input {
     width: 260px;
     height: 20px;
     padding: 16px;
-    display: block;
 }
-
 
 .right-container .task-header .task-title > div {
     display: inline-block;
@@ -446,14 +430,9 @@ button, input {
     text-align: left;
     font-size: 16px;
     font-weight: 400;
-    outline: none;
 }
 
-.right-container .task-header .task-title .display-task-title{
-    text-decoration: none;
-}
-
-.right-container .task-header .task-title .completed-task{
+.completed-task {
     text-decoration:line-through;
 }
 
@@ -498,7 +477,6 @@ button, input {
 }
 
 .right-container .task-details .task-steps input {
-    outline: none;
     width: 200px;
     height: 20px;
     display: inline-block;

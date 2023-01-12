@@ -45,12 +45,11 @@
   const taskMenu = document.getElementById("right-container");
 
   const middleContainer = document.getElementById("main-container");
+  const taskTitleHeader = document.getElementsByClassName("task-title")[0];
   const taskTitle = document.getElementById("display-task-title");
   const addButton = document.getElementById("hide-add-button");
   let importantStatus = document.getElementsByClassName("important-icon");
   let completeStatus = document.getElementsByClassName("complete-icon");
-  let taskCompleteStatus = document.getElementById("checkbox");
-  let taskImportantStatus = document.getElementById("important-status-icon");
   let chosenCategory = categories[0];
   let chosenTask;
 
@@ -58,7 +57,7 @@
     displayDate();
     renderCategory();
     eventListener();
-    renderTask();
+    renderTaskForCategory();
   }
 
   /**
@@ -141,6 +140,12 @@
     for (let index = 0; index < tasks.length; index++) {
       completeStatus[index].addEventListener("click", completeTask);
     }
+
+    if (taskTitleHeader.children.length > 0) {
+      taskTitleHeader.getElementsByClassName("task-title");
+      taskTitleHeader.children[0].addEventListener("click", completeTask);
+      taskTitleHeader.children[2].addEventListener("click", markImportant);
+    }
   }
 
   /**
@@ -194,51 +199,88 @@
         });
         newTask.value = "";
         taskContainer.innerHTML = "";
-        renderTask();
+        renderTaskForCategory();
       }
     }
   }
 
-  /**
-   * Get all the tasks for a specific category
-   */
-  function renderTask() {
+  function renderTaskForCategory() {
+    switch (chosenCategory.id) {
+      case 1:
+        renderSelectedTasks();
+        break;
+
+      case 2:
+        renderImportantTasks();
+        break;
+
+      default:
+        renderAllTasks();
+        break;
+    }
+  }
+
+  function renderSelectedTasks() {
     for (index = 0; index < tasks.length; index++) {
       if (tasks[index].categoryId == chosenCategory.id) {
-        let container = createElement("div");
-        let importantContainer = createElement("div");
-        let textContainer = createElement("div");
-        let completeIcon = createElement("div");
-        let text = createElement("p");
-        textContainer.setAttribute("class", "added-task");
-        completeIcon.setAttribute("id", tasks[index].id);
-        container.setAttribute("id", tasks[index].id);
-        textContainer.setAttribute("id", tasks[index].id);
-        completeIcon.setAttribute("class", "complete-icon");
-        let task = document.createTextNode(tasks[index].name);
-        text.appendChild(task);
-        textContainer.appendChild(text);
-        completeIcon.innerHTML = validateTaskCompleted(
-          tasks[index].isCompleted
-        );
-        container.appendChild(completeIcon);
-        importantContainer.className = "important-icon";
-        importantContainer.setAttribute("id", tasks[index].id);
-        importantContainer.innerHTML = validateTaskImportant(
-          tasks[index].isImportant
-        );
-        container.appendChild(textContainer);
-        container.className = "create-task";
-        container.appendChild(importantContainer);
-        taskContainer.appendChild(container);
-        taskContainer.insertBefore(container, taskContainer.children[0]);
+        renderTask();
       }
     }
     highlightTask();
     eventListener();
   }
 
-  function validateTaskCompleted(isCompleted) {
+  function renderImportantTasks() {
+    for (index = 0; index < tasks.length; index++) {
+      if (tasks[index].isImportant) {
+        renderTask();
+      }
+    }
+    highlightTask();
+    eventListener();
+  }
+
+  function renderAllTasks() {
+    for (index = 0; index < tasks.length; index++) {
+      renderTask();
+    }
+    highlightTask();
+    eventListener();
+  }
+
+  /**
+   * Get all the tasks for a specific category
+   */
+  function renderTask() {
+    let container = createElement("div");
+    let importantContainer = createElement("div");
+    let textContainer = createElement("div");
+    let completeIcon = createElement("div");
+    let text = createElement("p");
+    textContainer.setAttribute("class", "added-task");
+    completeIcon.setAttribute("id", tasks[index].id);
+    container.setAttribute("id", tasks[index].id);
+    textContainer.setAttribute("id", tasks[index].id);
+    completeIcon.setAttribute("class", "complete-icon");
+    let task = document.createTextNode(tasks[index].name);
+    text.appendChild(task);
+    textContainer.appendChild(text);
+    textContainer.classList.add(checkTaskStatus(tasks[index].isCompleted));
+    completeIcon.innerHTML = checkTaskCompletedStatus(tasks[index].isCompleted);
+    container.appendChild(completeIcon);
+    importantContainer.className = "important-icon";
+    importantContainer.setAttribute("id", tasks[index].id);
+    importantContainer.innerHTML = checkTaskImportantStatus(
+      tasks[index].isImportant
+    );
+    container.appendChild(textContainer);
+    container.className = "create-task";
+    container.appendChild(importantContainer);
+    taskContainer.appendChild(container);
+    taskContainer.insertBefore(container, taskContainer.children[0]);
+  }
+
+  function checkTaskCompletedStatus(isCompleted) {
     if (isCompleted) {
       return '<i class="fa-regular fa-circle-check"></i>';
     } else {
@@ -246,11 +288,17 @@
     }
   }
 
-  function validateTaskImportant(isImportant) {
+  function checkTaskImportantStatus(isImportant) {
     if (isImportant) {
       return '<i class="fa-solid fa-star"></i>';
     } else {
       return '<i class="fa-regular fa-star"></i>';
+    }
+  }
+
+  function checkTaskStatus(taskStatus) {
+    if (taskStatus) {
+      return "completed-task";
     }
   }
 
@@ -280,7 +328,7 @@
       document.title = chosenCategory.name;
       taskContainer.innerHTML = "";
       selectedCategory[--index].classList.add("selected-menu");
-      renderTask();
+      renderTaskForCategory();
     } else {
       for (let index = 0; index < categories.length; index++) {
         selectedCategory[index].classList.remove("selected-menu");
@@ -291,7 +339,7 @@
           document.title = categories[index].name;
           chosenCategory = categories[index];
           taskContainer.innerHTML = "";
-          renderTask();
+          renderTaskForCategory();
           eventListener();
         }
       }
@@ -305,6 +353,7 @@
   function displayTaskMenu(event) {
     resizeMainContainer();
     removeHighlightTask();
+    taskTitleHeader.innerHTML = "";
     renderNote(event);
     highlightTask();
   }
@@ -313,16 +362,29 @@
     for (let index = 0; index < tasks.length; index++) {
       if (event.currentTarget.id == tasks[index].id) {
         chosenTask = tasks[index];
-        taskTitle.value = tasks[index].name;
-        taskCompleteStatus.innerHTML = validateTaskCompleted(
+        let completeIconContainer = createElement("div");
+        completeIconContainer.id = tasks[index].id;
+        completeIconContainer.innerHTML = checkTaskCompletedStatus(
           tasks[index].isCompleted
         );
-        taskImportantStatus.innerHTML = validateTaskImportant(
+        let importantIconContainer = createElement("div");
+        importantIconContainer.id = tasks[index].id;
+        importantIconContainer.innerHTML = checkTaskImportantStatus(
           tasks[index].isImportant
         );
+        let taskInput = document.createElement("input");
+        taskInput.type = "text";
+        taskInput.className = "display-task-title";
+        taskInput.id = "display-task-title";
+        taskInput.value = chosenTask.name;
+        taskInput.classList.add(checkTaskStatus(tasks[index].isCompleted));
+        taskTitleHeader.appendChild(completeIconContainer);
+        taskTitleHeader.appendChild(taskInput);
+        taskTitleHeader.appendChild(importantIconContainer);
         note.value = chosenTask.note;
       }
     }
+    eventListener();
   }
 
   function highlightTask() {
@@ -347,9 +409,12 @@
    * @param event - The event object.
    */
   function addNote(event) {
-    if (note.value && note.value.trim() !== "") {
-      let taskId = chosenTask.id;
-      tasks[--taskId].note = note.value;
+    for (let index = 0; index < tasks.length; index++) {
+      if (tasks[index].id == chosenTask.id) {
+        if (note.value && note.value.trim() !== "") {
+          tasks[index].note = note.value;
+        }
+      }
     }
   }
 
@@ -388,7 +453,8 @@
       }
     }
     taskContainer.innerHTML = "";
-    renderTask();
+    renderTaskForCategory();
+    taskTitleHeader.innerHTML = "";
     renderNote(event);
     eventListener();
   }
@@ -405,7 +471,8 @@
       }
     }
     taskContainer.innerHTML = "";
-    renderTask();
+    renderTaskForCategory();
+    taskTitleHeader.innerHTML = "";
     renderNote(event);
     eventListener();
   }
