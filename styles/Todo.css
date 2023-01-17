@@ -382,7 +382,6 @@ button, input {
     display: inline-block;
     padding: 15px 14px;
     width: 88%;
-    pointer-events: none;
 }
 
 .main-container .task-container .create-task div:last-child {
@@ -392,6 +391,20 @@ button, input {
 .main-container .task-container .selected-task {
     cursor:pointer;
     background-color: #eff6fc;   
+}
+
+.completed-task-container{
+    background-color: transparent;
+    margin: 25px;
+    border-bottom: 1px solid black;
+    width: 91%;
+    height: 30px;
+}
+
+.completed-task-container .completed-tasks {
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .right-container {

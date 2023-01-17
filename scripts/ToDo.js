@@ -1,30 +1,10 @@
 (function () {
   const categories = [
-    {
-      id: 1,
-      name: "My Day",
-      icon: '<i class="fa-regular fa-sun"></i>',
-    },
-    {
-      id: 2,
-      name: "Important",
-      icon: '<i class="fa-regular fa-star"></i>',
-    },
-    {
-      id: 3,
-      name: "Planned",
-      icon: '<i class="fa-regular fa-calendar"></i>',
-    },
-    {
-      id: 4,
-      name: "Assigned To Me",
-      icon: '<i class="fa-regular fa-user"></i>',
-    },
-    {
-      id: 5,
-      name: "Tasks",
-      icon: '<i class="fa-solid fa-house"></i>',
-    },
+    { id: 1, name: "My Day", icon: "fa-regular fa-sun" },
+    { id: 2, name: "Important", icon: "fa-regular fa-star" },
+    { id: 3, name: "Planned", icon: "fa-regular fa-calendar" },
+    { id: 4, name: "Assigned To Me", icon: "fa-regular fa-user" },
+    { id: 5, name: "Tasks", icon: "fa-solid fa-house" },
   ];
 
   let tasks = [];
@@ -39,7 +19,7 @@
     "side-navigation-menu"
   );
   const taskContainer = document.getElementById("task-container");
-  let selectedTask = document.getElementsByClassName("create-task");
+  let selectedTask = document.getElementsByClassName("added-task");
   let note = document.getElementById("task-note");
   const exitTask = document.getElementById("exit-task-setting-icon");
   const taskMenu = document.getElementById("right-container");
@@ -47,7 +27,10 @@
   const middleContainer = document.getElementById("main-container");
   const taskTitleHeader = document.getElementsByClassName("task-title")[0];
   const taskTitle = document.getElementById("display-task-title");
-  const addButton = document.getElementById("hide-add-button");
+  const addButton = document.getElementsByClassName("hide-add-button")[0];
+  let completedTaskContainer = document.getElementsByClassName(
+    "completed-task-container"
+  )[0];
   let importantStatus = document.getElementsByClassName("important-icon");
   let completeStatus = document.getElementsByClassName("complete-icon");
   let chosenCategory = categories[0];
@@ -64,19 +47,22 @@
    * Get the category from the category array and creates a list item for each category.
    */
   function renderCategory() {
-    for (let i = 0; i < categories.length; i++) {
-      let listContainer = createElement("li");
-      listContainer.setAttribute("class", "side-navigation-menu");
-      listContainer.setAttribute("id", categories[i].id);
-      let iconContainer = createElement("div");
-      iconContainer.className = "side-navigation-menu-icon";
-      let categoryContainer = createElement("div");
-      iconContainer.innerHTML = categories[i].icon;
-      categoryContainer.innerHTML = categories[i].name;
+    for (let index = 0; index < categories.length; index++) {
+      let listContainer = createElement("li", {
+        className: "side-navigation-menu",
+        id: categories[index].id,
+      });
+      let iconContainer = createElement("div", {
+        className: "side-navigation-menu-icon",
+      });
+      let icon = createElement("i", { className: categories[index].icon });
+      let categoryContainer = createElement("div", { className: undefined });
+      iconContainer.appendChild(icon);
+      categoryContainer.innerHTML = categories[index].name;
       listContainer.appendChild(iconContainer);
       listContainer.appendChild(categoryContainer);
       list.appendChild(listContainer);
-      list.insertBefore(listContainer, list.children[i]);
+      list.insertBefore(listContainer, list.children[index]);
     }
     selectCategory(null);
   }
@@ -125,20 +111,20 @@
     exitTask.addEventListener("click", exitTaskMenu);
     addButton.addEventListener("click", addTask);
 
-    for (index = 0; index < categories.length; index++) {
+    for (let index = 0; index < categories.length; index++) {
       selectedCategory[index].addEventListener("click", selectCategory);
     }
 
-    for (let index = 0; index < tasks.length; index++) {
-      selectedTask[index].addEventListener("click", displayTaskMenu);
-    }
-
-    for (let index = 0; index < tasks.length; index++) {
-      importantStatus[index].addEventListener("click", markImportant);
-    }
-
-    for (let index = 0; index < tasks.length; index++) {
-      completeStatus[index].addEventListener("click", completeTask);
+    if (
+      selectedTask.length > 0 ||
+      importantStatus.length > 0 ||
+      completeStatus.length > 0
+    ) {
+      for (let index = 0; index < tasks.length; index++) {
+        selectedTask[index].addEventListener("click", displayTaskMenu);
+        importantStatus[index].addEventListener("click", markImportant);
+        completeStatus[index].addEventListener("click", completeTask);
+      }
     }
 
     if (taskTitleHeader.children.length > 0) {
@@ -160,7 +146,7 @@
         categoryName = "Untitled Task";
       }
       let categoryId = categories.length;
-      let categoryIcon = '<i class="fa-solid fa-list-ul"></i>';
+      let categoryIcon = "fa-solid fa-list-ul";
       newCategory.value = "";
       categories.push({
         id: ++categoryId,
@@ -214,26 +200,30 @@
         renderImportantTasks();
         break;
 
-      default:
+      case 5:
         renderAllTasks();
+        break;
+
+      default:
+        renderSelectedTasks();
         break;
     }
   }
 
   function renderSelectedTasks() {
-    for (index = 0; index < tasks.length; index++) {
+    for (let index = 0; index < tasks.length; index++) {
       if (tasks[index].categoryId == chosenCategory.id) {
-        renderTask();
+        renderTask(index);
       }
     }
-    highlightTask();
+    // highlightTask();
     eventListener();
   }
 
   function renderImportantTasks() {
-    for (index = 0; index < tasks.length; index++) {
+    for (let index = 0; index < tasks.length; index++) {
       if (tasks[index].isImportant) {
-        renderTask();
+        renderTask(index);
       }
     }
     highlightTask();
@@ -241,8 +231,8 @@
   }
 
   function renderAllTasks() {
-    for (index = 0; index < tasks.length; index++) {
-      renderTask();
+    for (let index = 0; index < tasks.length; index++) {
+      renderTask(index);
     }
     highlightTask();
     eventListener();
@@ -251,33 +241,41 @@
   /**
    * Get all the tasks for a specific category
    */
-  function renderTask() {
-    let container = createElement("div");
-    let importantContainer = createElement("div");
-    let textContainer = createElement("div");
-    let completeIcon = createElement("div");
-    let text = createElement("p");
-    textContainer.setAttribute("class", "added-task");
-    completeIcon.setAttribute("id", tasks[index].id);
-    container.setAttribute("id", tasks[index].id);
-    textContainer.setAttribute("id", tasks[index].id);
-    completeIcon.setAttribute("class", "complete-icon");
+  function renderTask(index) {
+    let container = createElement("div", {
+      className: "create-task",
+      id: tasks[index].id,
+    });
+    let importantContainer = createElement("div", {
+      className: "important-icon",
+      id: tasks[index].id,
+    });
+    let textContainer = createElement("div", {
+      className: "added-task",
+      id: tasks[index].id,
+    });
+    let completeIcon = createElement("div", {
+      className: "complete-icon",
+      id: tasks[index].id,
+    });
+    let text = createElement("p", { className: undefined });
     let task = document.createTextNode(tasks[index].name);
     text.appendChild(task);
     textContainer.appendChild(text);
     textContainer.classList.add(checkTaskStatus(tasks[index].isCompleted));
     completeIcon.innerHTML = checkTaskCompletedStatus(tasks[index].isCompleted);
     container.appendChild(completeIcon);
-    importantContainer.className = "important-icon";
-    importantContainer.setAttribute("id", tasks[index].id);
     importantContainer.innerHTML = checkTaskImportantStatus(
       tasks[index].isImportant
     );
     container.appendChild(textContainer);
-    container.className = "create-task";
     container.appendChild(importantContainer);
-    taskContainer.appendChild(container);
-    taskContainer.insertBefore(container, taskContainer.children[0]);
+    if (tasks[index].isCompleted) {
+      completedTaskContainer.appendChild(container);
+    } else {
+      taskContainer.appendChild(container);
+      taskContainer.insertBefore(container, taskContainer.children[0]);
+    }
   }
 
   function checkTaskCompletedStatus(isCompleted) {
@@ -308,8 +306,16 @@
    * @param name - tag name of the element
    * @returns element
    */
-  function createElement(name) {
-    return document.createElement(name);
+  function createElement(tag, element) {
+    let createdElement = document.createElement(tag);
+    if (element.className !== undefined) {
+      createdElement.className = element.className;
+    }
+
+    if (element.id !== undefined) {
+      createdElement.id = element.id;
+    }
+    return createdElement;
   }
 
   /**
@@ -321,28 +327,40 @@
    * @param event - the event that triggered the function
    */
   function selectCategory(event) {
-    if (event == null) {
+    if (event === null) {
       let index = chosenCategory.id;
       mainContainer.innerHTML = chosenCategory.name;
-      mainContainerIcon.innerHTML = chosenCategory.icon;
+      let icon = createElement("i", { className: chosenCategory.icon });
+      mainContainerIcon.innerHTML = "";
+      mainContainerIcon.appendChild(icon);
       document.title = chosenCategory.name;
       taskContainer.innerHTML = "";
       selectedCategory[--index].classList.add("selected-menu");
       renderTaskForCategory();
+      exitTaskMenu();
     } else {
+      removeHighlightCategory();
       for (let index = 0; index < categories.length; index++) {
-        selectedCategory[index].classList.remove("selected-menu");
         if (event.target.id == categories[index].id) {
           selectedCategory[index].classList.add("selected-menu");
           mainContainer.innerHTML = categories[index].name;
-          mainContainerIcon.innerHTML = categories[index].icon;
+          let icon = createElement("i", { className: categories[index].icon });
+          mainContainerIcon.innerHTML = "";
+          mainContainerIcon.appendChild(icon);
           document.title = categories[index].name;
           chosenCategory = categories[index];
           taskContainer.innerHTML = "";
           renderTaskForCategory();
           eventListener();
+          exitTaskMenu();
         }
       }
+    }
+  }
+
+  function removeHighlightCategory() {
+    for (let index = 0; index < categories.length; index++) {
+      selectedCategory[index].classList.remove("selected-menu");
     }
   }
 
@@ -362,20 +380,23 @@
     for (let index = 0; index < tasks.length; index++) {
       if (event.currentTarget.id == tasks[index].id) {
         chosenTask = tasks[index];
-        let completeIconContainer = createElement("div");
-        completeIconContainer.id = tasks[index].id;
+        let completeIconContainer = createElement("div", {
+          id: tasks[index].id,
+        });
         completeIconContainer.innerHTML = checkTaskCompletedStatus(
           tasks[index].isCompleted
         );
-        let importantIconContainer = createElement("div");
-        importantIconContainer.id = tasks[index].id;
+        let importantIconContainer = createElement("div", {
+          id: tasks[index].id,
+        });
         importantIconContainer.innerHTML = checkTaskImportantStatus(
           tasks[index].isImportant
         );
-        let taskInput = document.createElement("input");
+        let taskInput = document.createElement("input", {
+          className: "display-task-title",
+          id: "display-task-title",
+        });
         taskInput.type = "text";
-        taskInput.className = "display-task-title";
-        taskInput.id = "display-task-title";
         taskInput.value = chosenTask.name;
         taskInput.classList.add(checkTaskStatus(tasks[index].isCompleted));
         taskTitleHeader.appendChild(completeIconContainer);
@@ -391,8 +412,7 @@
     if (chosenTask != null) {
       for (let index = 0; index < tasks.length; index++) {
         if (tasks[index].id == chosenTask["id"]) {
-          let highlightTask = document.getElementById(chosenTask.id);
-          highlightTask.classList.add("selected-task");
+          selectedTask[index].parentElement.classList.add("selected-task");
         }
       }
     }
@@ -441,8 +461,6 @@
 
   function markImportant(event) {
     for (let index = 0; index < tasks.length; index++) {
-      console.log(event.target.id);
-      console.log(event.currentTarget.id);
       if (event.currentTarget.id == tasks[index].id) {
         chosenTask = tasks[index];
         if (chosenTask.isImportant == false) {
