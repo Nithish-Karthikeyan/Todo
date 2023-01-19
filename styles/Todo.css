@@ -349,15 +349,22 @@ button, input {
     color:  #2564CF;
     cursor: pointer;
 }
-
-.main-container .task-container {
+/*----------------------------*/
+.main-container .tasks-container {
     width:100%;
     height:315px;
     overflow-y: auto;
     padding-top: 8px;
 }
+/*----------------------------*/
+.main-container .task-container {
+    width:100%;
+    /* height:315px; */
+    /* overflow-y: auto; */
+    /* padding-top: 8px; */
+}
 
-.main-container .task-container .create-task {
+.main-container .tasks-container .task-container .create-task {
     width:89%;
     height:52px;
     margin:8px 0 0 20px;
@@ -368,37 +375,46 @@ button, input {
     cursor: pointer;      
 } 
 
-.main-container .task-container .create-task i {
+.main-container .tasks-container .task-container .create-task i {
     color: #2564CF;
 }
 
-.main-container .task-container .create-task div:first-child {
+.main-container .tasks-container .task-container .create-task div:first-child {
     display: inline-block;
     text-align: center;
     margin-top: 14px;
 }
 
-.main-container .task-container .create-task .added-task {
+.main-container .tasks-container .task-container .create-task .added-task {
     display: inline-block;
     padding: 15px 14px;
     width: 88%;
 }
 
-.main-container .task-container .create-task div:last-child {
+.main-container .tasks-container .task-container .create-task div:last-child {
     display: inline-block;
 }
 
-.main-container .task-container .selected-task {
+.main-container .tasks-container .task-container .selected-task {
     cursor:pointer;
     background-color: #eff6fc;   
 }
 
-.completed-task-container{
-    background-color: transparent;
+/* .completed-tasks{
+    
     margin: 25px;
     border-bottom: 1px solid black;
     width: 91%;
     height: 30px;
+    display: none; 
+} */
+
+.completed-tasks {
+    background-color: transparent;
+    margin: 8px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid black;
 }
 
 .completed-task-container .completed-tasks {
