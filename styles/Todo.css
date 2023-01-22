@@ -162,8 +162,10 @@ button, input {
 }
 
 .side-navigation .side-navigation-content .side-navigation-line hr {
-    width: 270px;
-    margin:10px 10px;
+    width: 250px;
+    padding-left: 10px;
+    padding-bottom: 8px;
+    margin-left: 10px;
     border-top: 1px solid grey;
 }
 
@@ -349,19 +351,16 @@ button, input {
     color:  #2564CF;
     cursor: pointer;
 }
-/*----------------------------*/
+
 .main-container .tasks-container {
     width:100%;
     height:315px;
     overflow-y: auto;
     padding-top: 8px;
 }
-/*----------------------------*/
+
 .main-container .task-container {
     width:100%;
-    /* height:315px; */
-    /* overflow-y: auto; */
-    /* padding-top: 8px; */
 }
 
 .main-container .tasks-container .task-container .create-task {
@@ -400,21 +399,17 @@ button, input {
     background-color: #eff6fc;   
 }
 
-/* .completed-tasks{
-    
-    margin: 25px;
-    border-bottom: 1px solid black;
-    width: 91%;
-    height: 30px;
-    display: none; 
-} */
-
 .completed-tasks {
     background-color: transparent;
     margin: 8px 20px;
     font-size: 16px;
     font-weight: 500;
     border-bottom: 1px solid black;
+    padding: 5px 2px 15px 2px;
+    display: block;
+}
+.hide-completed-tasks{
+    display: none;
 }
 
 .completed-task-container .completed-tasks {
@@ -422,6 +417,38 @@ button, input {
     font-size: 16px;
     font-weight: 600;
 }
+
+.main-container .tasks-container .completed-task-container .create-task {
+    width:89%;
+    height:52px;
+    margin:8px 0 0 20px;
+    border-radius: 2px;
+    padding: 0 16px;
+    background-color: #ffffff;
+    box-shadow: 0.4px 1px 2px 0.5px grey; 
+    cursor: pointer;      
+} 
+
+.main-container .tasks-container .completed-task-container .create-task i {
+    color: #2564CF;
+}
+
+.main-container .tasks-container .completed-task-container .create-task div:first-child {
+    display: inline-block;
+    text-align: center;
+    margin-top: 14px;
+}
+
+.main-container .tasks-container .completed-task-container .create-task .added-task {
+    display: inline-block;
+    padding: 15px 14px;
+    width: 88%;
+}
+
+.main-container .tasks-container .completed-task-container .create-task div:last-child {
+    display: inline-block;
+}
+
 
 .right-container {
     width: 345px;
@@ -680,19 +707,3 @@ button, input {
 .main-container .new-task .resize-add-new-task {
     width: 191%;
 }   
-
-/* .side-navigation {
-    display: none;
-} */
-
-/*size for toggle*/
-/* .main-container {
-    width: 1280px; 
-    height: 525px;
-}
-
-.main-container .manage-task .hide-add-button {
-    width: 22px;
-    height: 30px;
-    margin-left: 980px;
-} */

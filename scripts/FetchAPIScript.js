@@ -5,7 +5,7 @@ headers.append("Content-Type", "application/json");
 export async function getCategories(endpoint) {
   const response = await fetch(url + endpoint);
   const categories = await response.json();
-  return await categories;
+  return categories;
 }
 
 export async function addNewCategory(category, endpoint) {
@@ -26,7 +26,7 @@ export async function addNewCategory(category, endpoint) {
 export async function getTasks(endpoint) {
   const response = await fetch(url + endpoint);
   const tasks = await response.json();
-  return await tasks;
+  return tasks;
 }
 
 export async function addOrUpdateTask(task, endpoint) {

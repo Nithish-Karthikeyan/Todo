@@ -51,8 +51,13 @@ import {
     const existingCategories = getCategories("categories");
     existingCategories.then((existingCategory) => {
       categoryList = existingCategory;
-      chosenCategory = categoryList[0];
+      if (categoryList.length <= 5) {
+        chosenCategory = categoryList[0];
+      } else {
+        chosenCategory = categoryList[categoryList.length - 1];
+      }
       renderCategory();
+      selectCategory(null);
     });
   }
 
@@ -75,10 +80,16 @@ import {
       listContainer.appendChild(iconContainer);
       listContainer.appendChild(categoryContainer);
       list.appendChild(listContainer);
-      list.insertBefore(listContainer, list.children[index]);
+      if (categoryList[index].id == 5) {
+        let line = createElement("hr", { className: "" });
+        let categorySeparateLine = createElement("div", {
+          className: "side-navigation-line",
+        });
+        categorySeparateLine.appendChild(line);
+        list.appendChild(categorySeparateLine);
+      }
     }
     eventListener();
-    selectCategory(null);
   }
 
   /**
@@ -161,21 +172,16 @@ import {
       } else {
         categoryName = "Untitled Task";
       }
-      let categoryId = categoryList.length;
       newCategory.value = "";
       let category = {
         name: categoryName,
         icon: "fa-solid fa-list-ul",
       };
-      let result = addNewCategory(category, "category");
-      list.innerHTML = "";
-
-      result.then(() => {
-        getCategory("categories");
-        chosenCategory = categoryList[categoryId + 1];
-        eventListener();
-        selectCategory(null);
+      addNewCategory(category, "category").then(() => {
+        list.innerHTML = "";
+        getCategory();
       });
+      eventListener();
     }
   }
 
@@ -209,6 +215,10 @@ import {
     }
   }
 
+  /**
+   * Get the existing tasks from the backend, then set the tasks variable to the existing tasks,
+   * then clear the task container and then render the selected tasks.
+   */
   function getTasksList() {
     const existingTasks = getTasks("tasks");
     existingTasks.then((existingTaskList) => {
@@ -218,6 +228,10 @@ import {
     });
   }
 
+  /**
+   * For each task, check if the task's categoryId  contains the id of the chosenCategory. If it
+   * does, render the task fot the chosen category
+   */
   function renderSelectedTasks() {
     for (let index = 0; index < tasks.length; index++) {
       let categoryIds = tasks[index].categoryIds;
@@ -260,21 +274,16 @@ import {
     container.appendChild(textContainer);
     container.appendChild(importantContainer);
     if (task.isCompleted) {
-      let completedTitle = createElement("div", {
-        className: "completed-tasks",
-      });
-      completedTitle.innerHTML = "Completed";
-      completedTaskContainer.appendChild(completedTitle);
-      completedTaskContainer.insertBefore(
-        completedTitle,
-        completedTaskContainer.children[0]
-      );
+      completedTaskContainer.classList.remove("hide-completed-tasks");
       completedTaskContainer.appendChild(container);
       completedTaskContainer.insertBefore(
         container,
         completedTaskContainer.children[1]
       );
     } else {
+      if (completedTaskContainer.children.length == 1) {
+        completedTaskContainer.classList.add("hide-completed-tasks");
+      }
       taskContainer.appendChild(container);
       taskContainer.insertBefore(container, taskContainer.children[0]);
     }
@@ -283,7 +292,7 @@ import {
 
   /**
    * If the task is completed, return a checked icon, otherwise return a unchecked icon
-   * @param isCompleted - boolean
+   * @param {*} isCompleted - boolean
    * @returns the string to create the icon.
    */
   function checkTaskCompletedStatus(isCompleted) {
@@ -309,7 +318,7 @@ import {
 
   /**
    * If the taskStatus is true, return the string "completed-task".
-   * @param taskStatus - This is the status of the task. If it's true, then the task is completed.
+   * @param {*} taskStatus - This is the status of the task. If it's true, then the task is completed.
    * @returns the string "completed-task"
    */
   function checkTaskStatus(taskStatus) {
@@ -343,7 +352,7 @@ import {
    * mainContainer Icon to the icon of the category, the document's title will be changed to the name of the
    * category
    *
-   * @param {*} event - the event that triggered the function
+   * @param event - the event that triggered the function
    */
   function selectCategory(event) {
     if (event == null) {
@@ -392,7 +401,6 @@ import {
 
   /**
    * When the user clicks on a task, the task menu will appear and the task title will be set to the title of the task menu
-   * @param event - the event that triggered the function
    */
   function displayTaskMenu() {
     resizeMainContainer();
@@ -401,6 +409,10 @@ import {
     highlightTask();
   }
 
+  /**
+   * Get the task by the task id, then it removes the highlight task and displays the task menu.
+   * @param event - the event that triggered the function
+   */
   function getTaskByTaskId(event) {
     let id = event.currentTarget.id;
     const existingTask = getTaskById(id, "tasks");
@@ -522,7 +534,7 @@ import {
       } else {
         chosenTask.isImportant = false;
         let categoriesId = chosenTask.categoryIds;
-        chosenTask.categoriesId = categoriesId.slice(1);
+        chosenTask.categoriesId = categoriesId.splice(0, 1);
       }
       let updatedTask = addOrUpdateTask(chosenTask, "task");
       updatedTask.then(renderNote());
@@ -548,7 +560,12 @@ import {
       let updatedTask = addOrUpdateTask(chosenTask, "task");
       updatedTask.then(renderNote());
       taskContainer.innerHTML = "";
-      completedTaskContainer.innerHTML = "";
+      let completedTasks = completedTaskContainer.children;
+      for (let index = 0; index < completedTasks.length; index++) {
+        if (index > 0) {
+          completedTasks[index].remove(completedTasks.firstChild);
+        }
+      }
       getTasksList();
       eventListener();
     });
