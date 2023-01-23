@@ -7,29 +7,28 @@ import {
 } from "./FetchAPIScript.js";
 
 (function () {
-  const newTask = document.getElementById("add-new-task");
-  const list = document.getElementById("task-list");
-  const currentDate = document.getElementById("date");
-  const newCategory = document.getElementById("add-new-task-collection");
-  const mainContainer = document.getElementById("task-title");
-  const mainContainerIcon = document.getElementById("main-title-icon");
-  let selectedCategory = document.getElementsByClassName(
+  const NEW_TASK = document.getElementById("add-new-task");
+  const LIST = document.getElementById("task-list");
+  const CURRENT_DATE = document.getElementById("date");
+  const NEW_CATEGORY = document.getElementById("add-new-task-collection");
+  const MAIN_CONTAINER = document.getElementById("task-title");
+  const MAIN_CONTAINER_ICON = document.getElementById("main-title-icon");
+  const SELECTED_CATEGORY = document.getElementsByClassName(
     "side-navigation-menu"
   );
-  const taskContainer = document.getElementById("task-container");
-  let selectedTask = document.getElementsByClassName("added-task");
-  let note = document.getElementsByClassName("task-note")[0];
-  const exitTask = document.getElementById("exit-task-setting-icon");
-  const taskMenu = document.getElementById("right-container");
-
-  const middleContainer = document.getElementById("main-container");
-  const taskTitleHeader = document.getElementsByClassName("task-title")[0];
-  const addButton = document.getElementsByClassName("hide-add-button")[0];
-  let completedTaskContainer = document.getElementsByClassName(
+  const TASK_CONTAINER = document.getElementById("task-container");
+  const SELECTED_TASK = document.getElementsByClassName("added-task");
+  const NOTE = document.getElementsByClassName("task-note")[0];
+  const EXIT_TASK = document.getElementById("exit-task-setting-icon");
+  const TASK_MENU = document.getElementById("right-container");
+  const MIDDLE_CONTAINER = document.getElementById("main-container");
+  const TASK_TITLE_HEADER = document.getElementsByClassName("task-title")[0];
+  const ADD_BUTTON = document.getElementsByClassName("hide-add-button")[0];
+  const COMPLETED_TASK_CONTAINER = document.getElementsByClassName(
     "completed-task-container"
   )[0];
-  let importantStatus = document.getElementsByClassName("important-icon");
-  let completeStatus = document.getElementsByClassName("complete-icon");
+  const IMPORTANT_STATUS = document.getElementsByClassName("important-icon");
+  const COMPLETED_STATUS = document.getElementsByClassName("complete-icon");
   let chosenCategory;
   let chosenTask;
 
@@ -79,14 +78,14 @@ import {
       categoryContainer.innerHTML = categoryList[index].name;
       listContainer.appendChild(iconContainer);
       listContainer.appendChild(categoryContainer);
-      list.appendChild(listContainer);
+      LIST.appendChild(listContainer);
       if (categoryList[index].id == 5) {
         let line = createElement("hr", { className: "" });
         let categorySeparateLine = createElement("div", {
           className: "side-navigation-line",
         });
         categorySeparateLine.appendChild(line);
-        list.appendChild(categorySeparateLine);
+        LIST.appendChild(categorySeparateLine);
       }
     }
     eventListener();
@@ -123,41 +122,41 @@ import {
     let month = months[todayDate.getMonth()];
     let day = days[todayDate.getDay()];
     let date = todayDate.getDate();
-    currentDate.innerHTML = day + ", " + month + " " + date;
+    CURRENT_DATE.innerHTML = day + ", " + month + " " + date;
   }
 
   /**
    * Listen to the event to be happen for the required element
    */
   function eventListener() {
-    newTask.addEventListener("keypress", addTask);
-    newCategory.addEventListener("keypress", addCategory);
-    note.addEventListener("blur", addNote);
-    exitTask.addEventListener("click", exitTaskMenu);
-    addButton.addEventListener("click", addTask);
+    NEW_TASK.addEventListener("keypress", addTask);
+    NEW_CATEGORY.addEventListener("keypress", addCategory);
+    NOTE.addEventListener("blur", addNote);
+    EXIT_TASK.addEventListener("click", exitTaskMenu);
+    ADD_BUTTON.addEventListener("click", addTask);
 
-    if (selectedCategory.length > 0) {
+    if (SELECTED_CATEGORY.length > 0) {
       for (let index = 0; index < categoryList.length; index++) {
-        selectedCategory[index].addEventListener("click", selectCategory);
+        SELECTED_CATEGORY[index].addEventListener("click", selectCategory);
       }
     }
 
-    for (let index = 0; index < selectedTask.length; index++) {
-      selectedTask[index].addEventListener("click", getTaskByTaskId);
+    for (let index = 0; index < SELECTED_TASK.length; index++) {
+      SELECTED_TASK[index].addEventListener("click", getTaskByTaskId);
     }
 
-    for (let index = 0; index < importantStatus.length; index++) {
-      importantStatus[index].addEventListener("click", markImportant);
+    for (let index = 0; index < IMPORTANT_STATUS.length; index++) {
+      IMPORTANT_STATUS[index].addEventListener("click", markImportant);
     }
 
-    for (let index = 0; index < completeStatus.length; index++) {
-      completeStatus[index].addEventListener("click", completeTask);
+    for (let index = 0; index < COMPLETED_STATUS.length; index++) {
+      COMPLETED_STATUS[index].addEventListener("click", completeTask);
     }
 
-    if (taskTitleHeader.children.length > 0) {
-      taskTitleHeader.getElementsByClassName("task-title");
-      taskTitleHeader.children[0].addEventListener("click", completeTask);
-      taskTitleHeader.children[2].addEventListener("click", markImportant);
+    if (TASK_TITLE_HEADER.children.length > 0) {
+      TASK_TITLE_HEADER.getElementsByClassName("task-title");
+      TASK_TITLE_HEADER.children[0].addEventListener("click", completeTask);
+      TASK_TITLE_HEADER.children[2].addEventListener("click", markImportant);
     }
   }
 
@@ -167,18 +166,18 @@ import {
   function addCategory(event) {
     let categoryName;
     if (event.key == "Enter") {
-      if (newCategory.value && newCategory.value.trim() != "") {
-        categoryName = newCategory.value;
+      if (NEW_CATEGORY.value && NEW_CATEGORY.value.trim() != "") {
+        categoryName = NEW_CATEGORY.value;
       } else {
         categoryName = "Untitled Task";
       }
-      newCategory.value = "";
+      NEW_CATEGORY.value = "";
       let category = {
         name: categoryName,
         icon: "fa-solid fa-list-ul",
       };
       addNewCategory(category, "category").then(() => {
-        list.innerHTML = "";
+        LIST.innerHTML = "";
         getCategory();
       });
       eventListener();
@@ -190,9 +189,14 @@ import {
    */
   function addTask(event) {
     if (event.key == "Enter" || event.type == "click") {
-      if (newTask.value && newTask.value.trim() !== "") {
-        let taskName = newTask.value;
-        let selectedCategoryId = chosenCategory.id;
+      if (NEW_TASK.value && NEW_TASK.value.trim() !== "") {
+        let taskName = NEW_TASK.value;
+        let selectedCategoryId = [chosenCategory.id];
+        for (let index = 0; index < 4; index++) {
+          if (categoryList[index].id == chosenCategory.id) {
+            selectedCategoryId = [chosenCategory.id, categoryList[4].id];
+          }
+        }
         let importantStatus;
         if (chosenCategory.id == categoryList[1].id) {
           importantStatus = true;
@@ -201,14 +205,14 @@ import {
         }
         let addTask = {
           name: taskName,
-          categoryIds: [selectedCategoryId],
+          categoryIds: selectedCategoryId,
           note: "",
           isImportant: importantStatus,
           isCompleted: false,
         };
         addOrUpdateTask(addTask, "task");
-        newTask.value = "";
-        taskContainer.innerHTML = "";
+        NEW_TASK.value = "";
+        TASK_CONTAINER.innerHTML = "";
         getTasksList();
         eventListener();
       }
@@ -223,7 +227,8 @@ import {
     const existingTasks = getTasks("tasks");
     existingTasks.then((existingTaskList) => {
       tasks = existingTaskList;
-      taskContainer.innerHTML = "";
+      TASK_CONTAINER.innerHTML = "";
+      hideCompletedContainer();
       renderSelectedTasks();
     });
   }
@@ -274,20 +279,29 @@ import {
     container.appendChild(textContainer);
     container.appendChild(importantContainer);
     if (task.isCompleted) {
-      completedTaskContainer.classList.remove("hide-completed-tasks");
-      completedTaskContainer.appendChild(container);
-      completedTaskContainer.insertBefore(
+      COMPLETED_TASK_CONTAINER.classList.remove("hide-completed-tasks");
+      COMPLETED_TASK_CONTAINER.appendChild(container);
+      COMPLETED_TASK_CONTAINER.insertBefore(
         container,
-        completedTaskContainer.children[1]
+        COMPLETED_TASK_CONTAINER.children[1]
       );
     } else {
-      if (completedTaskContainer.children.length == 1) {
-        completedTaskContainer.classList.add("hide-completed-tasks");
-      }
-      taskContainer.appendChild(container);
-      taskContainer.insertBefore(container, taskContainer.children[0]);
+      hideCompletedContainer();
+      TASK_CONTAINER.appendChild(container);
+      TASK_CONTAINER.insertBefore(container, TASK_CONTAINER.children[0]);
     }
     eventListener();
+  }
+
+  /**
+   * If the completed task container has only one child, add the class "hide-completed-tasks" to the
+   * completed task container.
+   *
+   */
+  function hideCompletedContainer() {
+    if (COMPLETED_TASK_CONTAINER.children.length == 1) {
+      COMPLETED_TASK_CONTAINER.classList.add("hide-completed-tasks");
+    }
   }
 
   /**
@@ -357,29 +371,29 @@ import {
   function selectCategory(event) {
     if (event == null) {
       let index = chosenCategory.id;
-      mainContainer.innerHTML = chosenCategory.name;
+      MAIN_CONTAINER.innerHTML = chosenCategory.name;
       let icon = createElement("i", { className: chosenCategory.icon });
-      mainContainerIcon.innerHTML = "";
-      mainContainerIcon.appendChild(icon);
+      MAIN_CONTAINER_ICON.innerHTML = "";
+      MAIN_CONTAINER_ICON.appendChild(icon);
       document.title = chosenCategory.name;
-      taskContainer.innerHTML = "";
-      selectedCategory[--index].classList.add("selected-menu");
+      TASK_CONTAINER.innerHTML = "";
+      SELECTED_CATEGORY[--index].classList.add("selected-menu");
       getTasksList();
       exitTaskMenu();
     } else {
       removeHighlightCategory();
       for (let index = 0; index < categoryList.length; index++) {
         if (event.target.id == categoryList[index].id) {
-          selectedCategory[index].classList.add("selected-menu");
-          mainContainer.innerHTML = categoryList[index].name;
+          SELECTED_CATEGORY[index].classList.add("selected-menu");
+          MAIN_CONTAINER.innerHTML = categoryList[index].name;
           let icon = createElement("i", {
             className: categoryList[index].icon,
           });
-          mainContainerIcon.innerHTML = "";
-          mainContainerIcon.appendChild(icon);
+          MAIN_CONTAINER_ICON.innerHTML = "";
+          MAIN_CONTAINER_ICON.appendChild(icon);
           document.title = categoryList[index].name;
           chosenCategory = categoryList[index];
-          taskContainer.innerHTML = "";
+          TASK_CONTAINER.innerHTML = "";
           getTasksList();
           eventListener();
           exitTaskMenu();
@@ -392,9 +406,9 @@ import {
    * removes the class "selected-menu" from the selectedCategory array.
    */
   function removeHighlightCategory() {
-    if (selectedCategory.length > 0) {
+    if (SELECTED_CATEGORY.length > 0) {
       for (let index = 0; index < categoryList.length; index++) {
-        selectedCategory[index].classList.remove("selected-menu");
+        SELECTED_CATEGORY[index].classList.remove("selected-menu");
       }
     }
   }
@@ -428,7 +442,7 @@ import {
    * @param event - the event that triggered the function
    */
   function renderNote() {
-    taskTitleHeader.innerHTML = "";
+    TASK_TITLE_HEADER.innerHTML = "";
     let completeIconContainer = createElement("div", {
       id: chosenTask.id,
     });
@@ -448,11 +462,11 @@ import {
     taskInput.type = "text";
     taskInput.value = chosenTask.name;
     taskInput.classList.add(checkTaskStatus(chosenTask.isCompleted));
-    taskTitleHeader.appendChild(completeIconContainer);
-    taskTitleHeader.appendChild(taskInput);
-    taskTitleHeader.appendChild(importantIconContainer);
-    note.setAttribute("id", chosenTask.id);
-    note.value = chosenTask.note;
+    TASK_TITLE_HEADER.appendChild(completeIconContainer);
+    TASK_TITLE_HEADER.appendChild(taskInput);
+    TASK_TITLE_HEADER.appendChild(importantIconContainer);
+    NOTE.setAttribute("id", chosenTask.id);
+    NOTE.value = chosenTask.note;
     eventListener();
   }
 
@@ -462,11 +476,11 @@ import {
    */
   function highlightTask() {
     if (chosenTask != null) {
-      let selectedTaskIndex = selectedTask.length;
+      let selectedTaskIndex = SELECTED_TASK.length;
       for (let index = 0; index < tasks.length; index++) {
         --selectedTaskIndex;
         if (tasks[index].id == chosenTask["id"]) {
-          selectedTask[selectedTaskIndex].parentElement.classList.add(
+          SELECTED_TASK[selectedTaskIndex].parentElement.classList.add(
             "selected-task"
           );
         }
@@ -478,8 +492,8 @@ import {
    * It removes the class "selected-task" from all the elements in the selectedTask array
    */
   function removeHighlightTask() {
-    for (let index = 0; index < selectedTask.length; index++) {
-      selectedTask[index].classList.remove("selected-task");
+    for (let index = 0; index < SELECTED_TASK.length; index++) {
+      SELECTED_TASK[index].classList.remove("selected-task");
     }
   }
 
@@ -491,11 +505,13 @@ import {
     let savedTask = getTaskById(event.currentTarget.id, "tasks");
     savedTask.then((existingTask) => {
       let updateTask = existingTask;
-      if (note.value && note.value.trim() !== "") {
-        updateTask.note = note.value;
+      if (NOTE.value && NOTE.value.trim() !== "") {
+        updateTask.note = NOTE.value;
       }
       let updatedTask = addOrUpdateTask(updateTask, "task");
-      updatedTask.then(renderNote());
+      updatedTask.then(() => {
+        renderNote();
+      });
     });
   }
 
@@ -504,20 +520,20 @@ import {
    * The task Menu will hide
    */
   function exitTaskMenu() {
-    taskMenu.classList.add("hide-right-container");
-    middleContainer.classList.remove("resize-main-container");
-    addButton.classList.remove("resize-hide-add-button");
-    newTask.classList.remove("resize-add-new-task");
+    TASK_MENU.classList.add("hide-right-container");
+    MIDDLE_CONTAINER.classList.remove("resize-main-container");
+    ADD_BUTTON.classList.remove("resize-hide-add-button");
+    NEW_TASK.classList.remove("resize-add-new-task");
   }
 
   /**
    * When the user clicks on the task, the task menu will be displayed, the middle container will be resized
    */
   function resizeMainContainer() {
-    taskMenu.classList.remove("hide-right-container");
-    middleContainer.classList.add("resize-main-container");
-    addButton.classList.add("resize-hide-add-button");
-    newTask.classList.add("resize-add-new-task");
+    TASK_MENU.classList.remove("hide-right-container");
+    MIDDLE_CONTAINER.classList.add("resize-main-container");
+    ADD_BUTTON.classList.add("resize-hide-add-button");
+    NEW_TASK.classList.add("resize-add-new-task");
   }
 
   /**
@@ -538,7 +554,7 @@ import {
       }
       let updatedTask = addOrUpdateTask(chosenTask, "task");
       updatedTask.then(renderNote());
-      taskContainer.innerHTML = "";
+      TASK_CONTAINER.innerHTML = "";
       getTasksList();
       eventListener();
     });
@@ -559,8 +575,8 @@ import {
       }
       let updatedTask = addOrUpdateTask(chosenTask, "task");
       updatedTask.then(renderNote());
-      taskContainer.innerHTML = "";
-      let completedTasks = completedTaskContainer.children;
+      TASK_CONTAINER.innerHTML = "";
+      let completedTasks = COMPLETED_TASK_CONTAINER.children;
       for (let index = 0; index < completedTasks.length; index++) {
         if (index > 0) {
           completedTasks[index].remove(completedTasks.firstChild);
