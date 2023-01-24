@@ -29,6 +29,8 @@ import {
   )[0];
   const IMPORTANT_STATUS = document.getElementsByClassName("important-icon");
   const COMPLETED_STATUS = document.getElementsByClassName("complete-icon");
+  const HIDE_NAV_BAR = document.getElementById("toggle-menu");
+  const SIDE_NAVIGATION = document.getElementsByClassName("side-navigation")[0];
   let chosenCategory;
   let chosenTask;
 
@@ -95,34 +97,7 @@ import {
    * Gets the current date and displays it in the format of "Day, Month Date"
    */
   function displayDate() {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    let todayDate = new Date();
-    let month = months[todayDate.getMonth()];
-    let day = days[todayDate.getDay()];
-    let date = todayDate.getDate();
-    CURRENT_DATE.innerHTML = day + ", " + month + " " + date;
+    CURRENT_DATE.innerHTML = moment().format("dddd , MMMM D");
   }
 
   /**
@@ -134,6 +109,8 @@ import {
     NOTE.addEventListener("blur", addNote);
     EXIT_TASK.addEventListener("click", exitTaskMenu);
     ADD_BUTTON.addEventListener("click", addTask);
+    HIDE_NAV_BAR.addEventListener("click", hideSideNavigation);
+    MAIN_CONTAINER_ICON.addEventListener("click", showSideNavigation);
 
     if (SELECTED_CATEGORY.length > 0) {
       for (let index = 0; index < categoryList.length; index++) {
@@ -279,12 +256,14 @@ import {
     container.appendChild(textContainer);
     container.appendChild(importantContainer);
     if (task.isCompleted) {
-      COMPLETED_TASK_CONTAINER.classList.remove("hide-completed-tasks");
-      COMPLETED_TASK_CONTAINER.appendChild(container);
-      COMPLETED_TASK_CONTAINER.insertBefore(
-        container,
-        COMPLETED_TASK_CONTAINER.children[1]
-      );
+      if (chosenCategory.id != 2) {
+        COMPLETED_TASK_CONTAINER.classList.remove("hide-completed-tasks");
+        COMPLETED_TASK_CONTAINER.appendChild(container);
+        COMPLETED_TASK_CONTAINER.insertBefore(
+          container,
+          COMPLETED_TASK_CONTAINER.children[1]
+        );
+      }
     } else {
       hideCompletedContainer();
       TASK_CONTAINER.appendChild(container);
@@ -378,6 +357,7 @@ import {
       document.title = chosenCategory.name;
       TASK_CONTAINER.innerHTML = "";
       SELECTED_CATEGORY[--index].classList.add("selected-menu");
+      clearRenderingCompletedTasks();
       getTasksList();
       exitTaskMenu();
     } else {
@@ -394,10 +374,20 @@ import {
           document.title = categoryList[index].name;
           chosenCategory = categoryList[index];
           TASK_CONTAINER.innerHTML = "";
+          clearRenderingCompletedTasks();
           getTasksList();
           eventListener();
           exitTaskMenu();
         }
+      }
+    }
+  }
+
+  function clearRenderingCompletedTasks() {
+    let completedTasks = COMPLETED_TASK_CONTAINER.children;
+    for (let index = 0; index < completedTasks.length; index++) {
+      if (index > 0) {
+        completedTasks[index].remove(completedTasks.firstChild);
       }
     }
   }
@@ -576,15 +566,24 @@ import {
       let updatedTask = addOrUpdateTask(chosenTask, "task");
       updatedTask.then(renderNote());
       TASK_CONTAINER.innerHTML = "";
-      let completedTasks = COMPLETED_TASK_CONTAINER.children;
-      for (let index = 0; index < completedTasks.length; index++) {
-        if (index > 0) {
-          completedTasks[index].remove(completedTasks.firstChild);
-        }
-      }
+      clearRenderingCompletedTasks();
       getTasksList();
       eventListener();
     });
+  }
+
+  function hideSideNavigation(event) {
+    SIDE_NAVIGATION.classList.add("hide-side-navigation");
+    MIDDLE_CONTAINER.classList.add("resize-main-container-for-side-nav");
+    ADD_BUTTON.classList.add("resize-hide-add-button-for-side-nav");
+    NEW_TASK.classList.add("resize-add-new-task-for-side-nav");
+  }
+
+  function showSideNavigation() {
+    SIDE_NAVIGATION.classList.remove("hide-side-navigation");
+    MIDDLE_CONTAINER.classList.remove("resize-main-container-for-side-nav");
+    ADD_BUTTON.classList.remove("resize-hide-add-button-for-side-nav");
+    NEW_TASK.classList.remove("resize-add-new-task-for-side-nav");
   }
 
   init();
