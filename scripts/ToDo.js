@@ -4,7 +4,7 @@ import {
   getTasks,
   addOrUpdateTask,
   getTaskById,
-} from "./FetchAPIScript.js";
+} from "./serviceapi.js";
 
 (function () {
   const NEW_TASK = document.getElementById("add-new-task");
@@ -49,7 +49,7 @@ import {
    * render the category.
    */
   function getCategory() {
-    const existingCategories = getCategories("categories");
+    let existingCategories = getCategories("categories");
     existingCategories.then((existingCategory) => {
       categoryList = existingCategory;
       if (categoryList.length <= 5) {
@@ -153,10 +153,9 @@ import {
         name: categoryName,
         icon: "fa-solid fa-list-ul",
       };
-      addNewCategory(category, "category").then(() => {
-        LIST.innerHTML = "";
-        getCategory();
-      });
+      addNewCategory(category, "category");
+      LIST.innerHTML = "";
+      getCategory();
       eventListener();
     }
   }
@@ -467,7 +466,7 @@ import {
   function highlightTask() {
     if (chosenTask != null) {
       let selectedTaskIndex = SELECTED_TASK.length;
-      for (let index = 0; index < tasks.length; index++) {
+      for (let index = 0; index < SELECTED_TASK.length; index++) {
         --selectedTaskIndex;
         if (tasks[index].id == chosenTask["id"]) {
           SELECTED_TASK[selectedTaskIndex].parentElement.classList.add(
@@ -542,8 +541,8 @@ import {
         let categoriesId = chosenTask.categoryIds;
         chosenTask.categoriesId = categoriesId.splice(0, 1);
       }
-      let updatedTask = addOrUpdateTask(chosenTask, "task");
-      updatedTask.then(renderNote());
+      addOrUpdateTask(chosenTask, "task");
+      renderNote();
       TASK_CONTAINER.innerHTML = "";
       getTasksList();
       eventListener();
@@ -563,8 +562,8 @@ import {
       } else {
         chosenTask.isCompleted = false;
       }
-      let updatedTask = addOrUpdateTask(chosenTask, "task");
-      updatedTask.then(renderNote());
+      addOrUpdateTask(chosenTask, "task");
+      renderNote();
       TASK_CONTAINER.innerHTML = "";
       clearRenderingCompletedTasks();
       getTasksList();

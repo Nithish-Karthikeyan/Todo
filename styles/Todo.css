@@ -731,3 +731,19 @@ button, input {
 .main-container .new-task .resize-add-new-task-for-side-nav {
     width: 400%;
 }  
+
+/*resize-with-right-container-*/
+.main-container-for-right-container {
+    width: 72%; 
+    height: 525px;
+}
+
+.main-container .manage-task .resize-hide-add-button-for-right-container {
+    width: 22px;
+    height: 30px;
+    margin-left: 70%;
+}
+
+.main-container .new-task .resize-add-new-task-for-right-container {
+    width: 290%;
+}  
