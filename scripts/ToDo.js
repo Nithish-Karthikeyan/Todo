@@ -509,20 +509,34 @@ import {
    * The task Menu will hide
    */
   function exitTaskMenu() {
-    TASK_MENU.classList.add("hide-right-container");
-    MIDDLE_CONTAINER.classList.remove("resize-main-container");
-    ADD_BUTTON.classList.remove("resize-hide-add-button");
-    NEW_TASK.classList.remove("resize-add-new-task");
+    if (SIDE_NAVIGATION.className == "side-navigation hide-side-navigation") {
+      TASK_MENU.classList.add("hide-right-container");
+      MIDDLE_CONTAINER.classList.remove("main-container-for-right-container");
+      ADD_BUTTON.classList.remove("hide-add-button-for-right-container");
+      NEW_TASK.classList.remove("add-new-task-for-right-container");
+    } else {
+      TASK_MENU.classList.add("hide-right-container");
+      MIDDLE_CONTAINER.classList.remove("resize-main-container");
+      ADD_BUTTON.classList.remove("resize-hide-add-button");
+      NEW_TASK.classList.remove("resize-add-new-task");
+    }
   }
 
   /**
    * When the user clicks on the task, the task menu will be displayed, the middle container will be resized
    */
   function resizeMainContainer() {
-    TASK_MENU.classList.remove("hide-right-container");
-    MIDDLE_CONTAINER.classList.add("resize-main-container");
-    ADD_BUTTON.classList.add("resize-hide-add-button");
-    NEW_TASK.classList.add("resize-add-new-task");
+    if (SIDE_NAVIGATION.className == "side-navigation hide-side-navigation") {
+      TASK_MENU.classList.remove("hide-right-container");
+      MIDDLE_CONTAINER.classList.add("main-container-for-right-container");
+      ADD_BUTTON.classList.add("hide-add-button-for-right-container");
+      NEW_TASK.classList.add("add-new-task-for-right-container");
+    } else {
+      TASK_MENU.classList.remove("hide-right-container");
+      MIDDLE_CONTAINER.classList.add("resize-main-container");
+      ADD_BUTTON.classList.add("resize-hide-add-button");
+      NEW_TASK.classList.add("resize-add-new-task");
+    }
   }
 
   /**

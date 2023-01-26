@@ -738,12 +738,12 @@ button, input {
     height: 525px;
 }
 
-.main-container .manage-task .resize-hide-add-button-for-right-container {
+.main-container .manage-task .hide-add-button-for-right-container {
     width: 22px;
     height: 30px;
     margin-left: 70%;
 }
 
-.main-container .new-task .resize-add-new-task-for-right-container {
+.main-container .new-task .add-new-task-for-right-container {
     width: 290%;
 }  
